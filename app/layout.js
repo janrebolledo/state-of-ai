@@ -40,22 +40,22 @@ export default function RootLayout({ children }) {
           <Image
             src={bleed}
             alt=''
-            className='opacity-[.05] dark:opacity-[.3] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
+            className='opacity-[.05] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
           />
           <Image
             src={bleed}
             alt=''
-            className='opacity-[.05] dark:opacity-[.3] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
+            className='opacity-[.05] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
           />
           <Image
             src={bleed}
             alt=''
-            className='opacity-[.05] dark:opacity-[.3] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
+            className='opacity-[.05] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
           />
           <Image
             src={bleed}
             alt=''
-            className='opacity-[.05] dark:opacity-[.3] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
+            className='opacity-[.05] object-fill w-full h-full mix-blend-multiply backdrop-blur-[0.5px]'
           />
         </div>
       </body>

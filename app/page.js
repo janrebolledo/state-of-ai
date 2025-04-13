@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import logo from '../public/school-of-browser.png';
 import {
   ArrowDown,
   ArrowRight,
@@ -12,6 +10,7 @@ import {
 } from './components/Vectors';
 import Link from 'next/link';
 import Video from './components/Video';
+import Header from './components/Header';
 
 const team = [
   {
@@ -98,7 +97,7 @@ function Quote({ title, quote, className }) {
       ) : (
         <QuoteIcon className='text-accent' />
       )}
-      <h3 className='leading-[150%]'>{quote}</h3>
+      <h3 className='leading-[150%] text-primary-body'>{quote}</h3>
     </blockquote>
   );
 }
@@ -106,17 +105,10 @@ function Quote({ title, quote, className }) {
 export default function Home() {
   return (
     <main>
-      <header className='w-full flex p-12'>
-        <Image
-          src={logo}
-          quality={80}
-          className='w-16 h-16'
-          alt='School of Browser Logo'
-        />
-      </header>
+      <Header />
       {/* hero */}
       <section>
-        <div className='flex flex-col gap-16 p-4 items-center justify-center z-10'>
+        <div className='flex flex-col gap-16 p-4 items-center justify-center z-10 pt-section'>
           <div className='flex justify-center flex-col text-center items-center'>
             <p className='text-secondary-body font-mono'>
               SCHOOL OF BROWSER PRESENTS
@@ -133,15 +125,17 @@ export default function Home() {
               </span>
             </h1>
           </div>
-          <p className='text-primary-body uppercase md:w-[38rem] text-center font-mono'>
+          <p className='text-secondary-body uppercase md:w-[38rem] text-center font-mono'>
             How do students feel about AI? What wonderful, wacky things are they
             doing with it? What are they afraid of?
             <br />
             <br />
-            The students of <b>School of Browser</b> did some digging, and
-            we&apos;ve put together this experience exploring the state of AI
-            among <b>65+ college students</b> across <b>25+ schools</b> in the
-            U.S. today.
+            The students of{' '}
+            <b className='text-primary-body'>School of Browser</b> did some
+            digging, and we&apos;ve put together this experience exploring the
+            state of AI among{' '}
+            <b className='text-primary-body'>65+ college students</b> across{' '}
+            <b className='text-primary-body'>25+ schools</b> in the U.S. today.
             <br />
             <br />
             ARE YOU Ready?
@@ -192,7 +186,7 @@ export default function Home() {
         <h2 className='text-primary-title'>
           Straight From the Source: The State of AI Amongst Students
         </h2>
-        <p className='font-mono text-secondary-body'>
+        <p className='font-mono text-secondary-body mb-16'>
           February 27th, 2024
           <br />
           WRITTEN BY HOPE HSIEH

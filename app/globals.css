@@ -21,7 +21,7 @@
   --alt-background-gradient: #3f3c51;
   --alt-background-gradient-zero: #3f3c5100;
   --alt-primary-title: #f8f5ef;
-  --alt-primary-body: #1e1e77;
+  --alt-primary-body: #f1e7e7;
 }
 
 @theme inline {
@@ -76,22 +76,21 @@
     --rounding: 0.5rem;
   }
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #2a292c;
-    --background-gradient: #3f3c51;
-    --background-gradient-zero: #3f3c5100;
-    --primary-title: #f8f5ef;
-    --primary-body: #f8f5ef;
-    --secondary-body: #ccc8d0;
-    --accent: #a29db9;
-    --tag: #524e5a;
-    --alt-background: #f7f0f0;
-    --alt-background-gradient: #ded9f0;
-    --alt-background-gradient-zero: #d1cae900;
-    --alt-primary-title: #575975;
-    --alt-primary-body: #858698;
-  }
+
+html[data-theme='dark'] {
+  --background: #2a292c;
+  --background-gradient: #3f3c51;
+  --background-gradient-zero: #3f3c5100;
+  --primary-title: #f8f5ef;
+  --primary-body: #f8f5ef;
+  --secondary-body: #ccc8d0;
+  --accent: #a29db9;
+  --tag: #524e5a;
+  --alt-background: #f7f0f0;
+  --alt-background-gradient: #ded9f0;
+  --alt-background-gradient-zero: #d1cae900;
+  --alt-primary-title: #575975;
+  --alt-primary-body: #858698;
 }
 
 body {
@@ -147,4 +146,8 @@ h3 {
     var(--background-gradient, #ded9f0) 0%,
     var(--background-gradient-zero, rgba(209, 202, 233, 0)) 100%
   );
+}
+
+#star {
+  fill: var(--background);
 }
