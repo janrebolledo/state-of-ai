@@ -13,12 +13,12 @@ function Video() {
   return (
     <div className='grid aspect-video rounded-rounding' onClick={toggleVideo}>
       {!playing && (
-        <div className='row-end-1 col-end-1 flex items-center justify-center rounded-2xl z-10 text-secondary-body'>
+        <div className='row-end-1 col-end-1 flex items-center justify-center rounded-rounding z-10 text-secondary-body'>
           <Play />
         </div>
       )}
       <video
-        className='row-end-1 col-end-1 bg-accent w-full rounded-2xl aspect-video'
+        className='row-end-1 col-end-1 bg-accent w-full rounded-rounding aspect-video'
         ref={videoRef}
       ></video>
     </div>
