@@ -12,6 +12,11 @@ const sans = localFont({
       weight: '500',
       style: 'normal',
     },
+    // {
+    //   path: './fonts/PPNeueMontreal-Book.woff2',
+    //   weight: '600',
+    //   style: 'normal',
+    // },
     // { path: './fonts/PPMori-SemiBold.otf', weight: '700', style: 'normal' },
     // { path: './fonts/PPMori-ExtraBold.otf', weight: '800', style: 'normal' },
   ],

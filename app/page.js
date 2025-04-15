@@ -4,88 +4,159 @@ import {
   Email,
   LinkIcon,
   QuoteIcon,
+  Signatures,
   SoftStar,
   Waves,
+  Waves2,
   X,
 } from './components/Vectors';
 import Link from 'next/link';
 import Video from './components/Video';
 import Header from './components/Header';
+import Image from 'next/image';
+
+import Elissa from '../public/headshots/Elissa.png';
+import Jan from '../public/headshots/Jan.png';
+import Hope from '../public/headshots/Hope.png';
+import Miles from '../public/headshots/Miles.png';
+import Selene from '../public/headshots/Selene.png';
+import Jacqueline from '../public/headshots/Jacqueline.png';
+import Kristen from '../public/headshots/Kristen.png';
+import Julia from '../public/headshots/Julia.png';
+import Devin from '../public/headshots/Devin.jpg';
+import Opata from '../public/headshots/Opata.jpg';
 
 const team = [
   {
     name: 'Elissa Martial',
     subtitle: 'USC, She/her',
-    image: null,
-    role: ['Web Design', 'Dev', 'Research'],
-    email: 'email@email.com',
-    website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    image: Elissa,
+    role: ['Web Design'],
+    email: 'emartial@usc.edu',
+    website: 'https://www.elissamartial.com/',
+    x: 'https://x.com/elissajmar',
   },
   {
     name: 'Jan Rebolledo',
     subtitle: 'CPP, HE/HIM',
-    image: null,
+    image: Jan,
     role: ['Dev', 'Video'],
-    email: 'email@email.com',
-    website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    email: 'janr@cpp.edu',
+    website: 'https://janrebolledo.com',
+    x: 'https://x.com/janconcepts',
   },
   {
     name: 'Hope Hsieh',
     subtitle: 'NEU, She/her',
-    image: null,
+    image: Hope,
     role: ['writing', 'Research'],
-    email: 'email@email.com',
+    email: 'hsieh.ho@northeastern.edu',
     website: 'https://thebrowser.company',
-    x: 'https://x.com/',
   },
   {
     name: 'MILES DOBRENSKI',
     subtitle: 'Berkeley, he/him',
-    image: null,
+    image: Miles,
     role: ['graphics', 'Research'],
-    email: 'email@email.com',
+    email: 'milesdobrenski@berkeley.edu',
     website: 'https://thebrowser.company',
     x: 'https://x.com/',
   },
   {
     name: 'Selene Chang',
     subtitle: 'NYU, she/they',
-    image: null,
+    image: Selene,
     role: ['Research'],
-    email: 'email@email.com',
-    website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    email: 'selenechang@nyu.edu',
+    website: 'https://www.selenechang.com/',
   },
   {
     name: 'Jacqueline Guo',
     subtitle: 'USC, she/her',
-    image: null,
+    image: Jacqueline,
     role: ['Research'],
-    email: 'email@email.com',
+    email: 'guojacqu@usc.edu',
     website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    x: 'https://x.com/jacqfolio',
   },
   {
     name: 'Kristen Choi',
     subtitle: 'CMU, she/her',
-    image: null,
+    image: Kristen,
     role: ['Research'],
-    email: 'email@email.com',
-    website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    email: 'kychoi@andrew.cmu.edu',
   },
   {
     name: 'Julia Bock',
     subtitle: 'Quinnipiac, she/her',
-    image: null,
+    image: Julia,
     role: ['Marketing'],
-    email: 'email@email.com',
-    website: 'https://thebrowser.company',
-    x: 'https://x.com/',
+    email: 'jlbock@quinnipiac.edu',
   },
 ];
+
+const bcny = [
+  {
+    name: 'Devin Lewtan',
+    subtitle: 'BCNY, School of browser lead',
+    image: Devin,
+    email: '',
+    website: 'https://lewtan.dev/',
+    x: 'https://x.com/DevinLewtan',
+  },
+  {
+    name: 'Opata olende',
+    subtitle: 'BCNY, lead ux researcher',
+    image: Opata,
+    role: ['Dev', 'Video'],
+    email: '',
+    x: 'https://x.com/royolende',
+  },
+];
+
+function PersonCard({ member }) {
+  return (
+    <div className='flex gap-6 p-4 xl:col-span-2 xl:nth-last-of-type-[2]:col-span-3 xl:nth-last-of-type-[1]:col-span-3 lg:nth-last-of-type-[2]:justify-center lg:nth-last-of-type:justify-center px-[30%] md:px-4'>
+      <Image
+        className='w-[4.875rem] h-[4.875rem] aspect-square rounded-full bg-accent'
+        src={member.image}
+        alt={member.name}
+      />
+      <div>
+        <p className='font-bold font-mono text-primary-body'>{member.name}</p>
+        <p className='font-mono text-secondary-body'>{member.subtitle}</p>
+        <div className='flex flex-wrap gap-1 my-3'>
+          {member.role &&
+            member.role.map((i) => (
+              <p
+                key={i}
+                className='text-secondary-body px-2 py-1 bg-tag font-mono uppercase rounded-[0.125rem] w-max'
+              >
+                {i}
+              </p>
+            ))}
+        </div>
+        <div className='flex gap-2.5 text-accent'>
+          {member.email && (
+            <Link href={member.email}>
+              <Email />
+            </Link>
+          )}
+          {member.website && (
+            <Link href={member.website}>
+              <LinkIcon />
+            </Link>
+          )}
+          {member.x && (
+            <Link href={member.x}>
+              <X />
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Quote({ title, quote, className }) {
   return (
@@ -104,7 +175,7 @@ function Quote({ title, quote, className }) {
 
 export default function Home() {
   return (
-    <main>
+    <main className='[&_*]:transition-colors'>
       <Header />
       {/* hero */}
       <section>
@@ -148,18 +219,26 @@ export default function Home() {
       </section>
       {/* quiz section */}
       <section className='relative flex flex-col my-32 gap-16 mx-4 rounded-rounding mb-section bg-alt-background px-page justify-center text-center items-center py-32'>
-        <h2 className='text-alt-primary-title'>What&apos;s your persona?</h2>
-        <p className='font-mono text-alt-primary-body'>
+        <h2 className='text-alt-primary-title z-10'>
+          What&apos;s your persona?
+        </h2>
+        <p className='font-mono text-alt-primary-body z-10'>
           Are you a purist who never uses ai? an explorer digging for new use
           cases? a power adopter, who asks ai for relationship advice?
         </p>
+        <p>placeholder doodles [ ੯‧̀͡⬮ ] </p>
         <Link
           href='/'
-          className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono items-center rounded-sm w-64'
+          className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono items-center rounded-sm w-64 z-10'
         >
           <span>TAKE THE QUIZ</span>
           <ArrowRight />
         </Link>
+        <div className='absolute top-0 left-0 right-0 bottom-0 overflow-hidden'>
+          <div className='absolute top-0 left-0 right-0 overflow-hidden flex justify-center items-center'>
+            <div className='z-0 alt-gradient' />
+          </div>
+        </div>
         <p>🚧 working</p>
       </section>
       {/* bridge */}
@@ -441,50 +520,31 @@ export default function Home() {
           create meaningfully.
         </p>
       </section>
+      {/*  */}
       <footer className='px-page mb-section'>
-        <div>
-          <p>🚧 working</p>
+        <div className='flex justify-center items-center gap-4 mb-16'>
+          <Waves2 className='text-accent' />
+          <p className='font-mono text-secondary-body whitespace-nowrap'>
+            BROUGHT TO YOU WITH LOVE BY
+          </p>
+          <Waves2 className='text-accent' />
         </div>
-        <div className='flex gap-x-8 gap-y-16 flex-wrap'>
+        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-x-8 gap-y-16 flex-wrap mb-48'>
           {team.map((member, index) => (
-            <div key={index} className='flex gap-6 p-4 flex-1/4 justify-center'>
-              <div className='w-[4.875rem] h-[4.875rem] aspect-square rounded-full bg-accent' />
-              <div>
-                <p className='font-bold font-mono text-primary-body'>
-                  {member.name}
-                </p>
-                <p className='font-mono text-secondary-body'>
-                  {member.subtitle}
-                </p>
-                <div className='flex flex-wrap gap-1 my-3'>
-                  {member.role.map((i) => (
-                    <p
-                      key={i}
-                      className='text-secondary-body px-2 py-1 bg-tag font-mono uppercase rounded-[0.125rem] w-max'
-                    >
-                      {i}
-                    </p>
-                  ))}
-                </div>
-                <div className='flex gap-2.5'>
-                  {member.email && (
-                    <Link href={member.email}>
-                      <Email />
-                    </Link>
-                  )}
-                  {member.website && (
-                    <Link href={member.website}>
-                      <LinkIcon />
-                    </Link>
-                  )}
-                  {member.x && (
-                    <Link href={member.x}>
-                      <X />
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
+            <PersonCard member={member} key={index} />
+          ))}
+        </div>
+        <Signatures className='text-accent mx-auto w-full xl:w-auto mb-48' />
+        <div className='flex justify-center items-center gap-4 mb-16'>
+          <Waves2 className='text-accent' />
+          <p className='font-mono text-secondary-body whitespace-nowrap'>
+            Special thanks to:
+          </p>
+          <Waves2 className='text-accent' />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-x-8 gap-y-16 flex-wrap mb-48'>
+          {bcny.map((member, index) => (
+            <PersonCard member={member} key={index} />
           ))}
         </div>
       </footer>
