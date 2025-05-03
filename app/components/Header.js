@@ -1,30 +1,46 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const [theme, setTheme] = useState(null);
   useEffect(() => {
-    const localTheme = localStorage.getItem('theme');
-    if (localTheme) {
-      setTheme(localTheme);
-      document.documentElement.dataset.theme = localTheme;
+    if (pathname === '/') {
+      const localTheme = localStorage.getItem('theme');
+      if (localTheme) {
+        setTheme(localTheme);
+        document.documentElement.dataset.theme = localTheme;
+      } else {
+        const prefersLightTheme = window.matchMedia(
+          '(prefers-color-scheme: light)'
+        );
+        localStorage.setItem('theme', prefersLightTheme ? 'light' : 'dark');
+        setTheme(prefersLightTheme ? 'light' : 'dark');
+        document.documentElement.dataset.theme =
+          theme === 'light' ? 'dark' : 'light';
+      }
     } else {
-      const prefersLightTheme = window.matchMedia(
-        '(prefers-color-scheme: light)'
-      );
-      localStorage.setItem('theme', prefersLightTheme ? 'light' : 'dark');
-      setTheme(prefersLightTheme ? 'light' : 'dark');
-      document.documentElement.dataset.theme =
-        theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = 'dark';
     }
   }, []);
 
   function toggleTheme() {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-    localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
-    document.documentElement.dataset.theme =
-      theme === 'light' ? 'dark' : 'light';
+    if (pathname === '/') {
+      setTheme(theme === 'light' ? 'dark' : 'light');
+      localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
+      document.documentElement.dataset.theme =
+        theme === 'light' ? 'dark' : 'light';
+    }
   }
+
+  useEffect(() => {
+    console.log(
+      '%c🧑‍🚀 Hey, Astronaut!\n\n%cThis project was built by 8 students over the course of ~4 months, thanks for taking the time to poke around!\n\nSincerely,\n✦ Your Student Ambassador Friends at BCNY',
+      'font-weight: bold; font-size: 18px;',
+      'font-size: 16px;'
+    );
+  }, []);
   return (
     <header className='w-full flex p-12 fixed z-10'>
       <Logo

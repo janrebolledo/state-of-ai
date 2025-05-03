@@ -138,7 +138,7 @@ function PersonCard({ member }) {
         </div>
         <div className='flex gap-2.5 text-accent'>
           {member.email && (
-            <Link href={member.email}>
+            <Link href={`mailto:${member.email}`}>
               <Email />
             </Link>
           )}
@@ -170,6 +170,15 @@ function Quote({ title, quote, className }) {
       )}
       <h3 className='leading-[150%] text-primary-body'>{quote}</h3>
     </blockquote>
+  );
+}
+
+function Statistic({ main, subheading, className }) {
+  return (
+    <div className={`text-center py-12 ${className}`}>
+      <h1 className='text-primary-title mb-4'>{main}</h1>
+      <p className='font-mono text-secondary-body'>{subheading}</p>
+    </div>
   );
 }
 
@@ -228,7 +237,7 @@ export default function Home() {
         </p>
         <p>placeholder doodles [ ੯‧̀͡⬮ ] </p>
         <Link
-          href='/'
+          href='/quiz'
           className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono items-center rounded-sm w-64 z-10'
         >
           <span>TAKE THE QUIZ</span>
@@ -273,16 +282,16 @@ export default function Home() {
         <p className='text-primary-body body mb-32'>
           <b>Artificial intelligence is rapidly reshaping industries</b>, and an
           important question is how the younger generations are learning to
-          adapt to the shifts as they grow alongside the technology. As student
-          ambassadors for The Browser Company, we conducted research to explore
-          the nuances of how students—from high school to graduate school—regard
-          and use AI in their daily lives. Through surveys and conversations, we
-          gathered data and viewed trends on both the value AI can provide and
-          the attitudes of the students.
+          adapt to these shifts as they grow alongside the technology. As
+          student ambassadors for The Browser Company, we conducted research to
+          explore the nuances of how students—from high school to graduate
+          school—regard and use AI in their daily lives. Through surveys and
+          conversations, we gathered data and viewed trends on both the value AI
+          can provide and the attitudes of the students.
           <br />
           <br />
-          The results were complex: Students see AI as both a powerful tool and
-          a potential crutch. Because of this, they worry about overreliance on
+          The results were complex: students see AI as both a powerful tool and
+          a potential crutch. Because of this, they worry about over-reliance on
           the technology, misinformation, and the potential for privacy risks.
           <br />
           <br />
@@ -296,17 +305,22 @@ export default function Home() {
           className='mb-32'
         />
         <h3 className='text-primary-title'>
-          AI as a Tool, Not a Voice/Collaborator
+          AI as a Tool, Not a Voice nor Collaborator
         </h3>
         <p className='text-primary-body body mb-32'>
           One of the most interesting takeaways was that students don&apos;t see
           AI use as an all-or-nothing proposition. Many don&apos;t feel the need
-          to disclose the full breadth of their AI—especially in cases of
+          to disclose the full breadth of their AI use—especially in cases of
           assistance—in their academic work. Not because they&apos;re being
           dishonest, but because they only use it for what they consider
           “menial” tasks: summarizing readings, proofreading drafts.
-          <br />
-          <br />
+        </p>
+        <Statistic
+          main='1/3'
+          subheading='mentioned “summaries” in their Daily AI usage'
+          className='mb-32'
+        />
+        <p className='text-primary-body body mb-32'>
           In the eyes of students, there&apos;s a common consensus that these
           aren&apos;t seen as acts of intellectual creation, but as clerical
           work that they can offload for AI to handle.
@@ -326,9 +340,9 @@ export default function Home() {
           The Limits of AI-Generated Writing
         </h3>
         <p className='text-primary-body body mb-32'>
-          AI is used to troubleshoot code or refine writing. But when it comes
-          to personal expression, crafting the actual argument of an essay or
-          selecting ideas and making art, students want to maintain full
+          AI is often used to troubleshoot code or refine writing. But when it
+          comes to personal expression, crafting the actual argument of an essay
+          or selecting ideas and making art, students want to maintain full
           control. “I use AI to brainstorm and sometimes workshop [my] writing,
           but I never take huge AI-generated chunks [because] it&apos;s usually
           not that good [or] doesn&apos;t sound like me,” a student says.
@@ -336,41 +350,44 @@ export default function Home() {
           writing, just editing.
           <br />
           <br />
-          This hesitation and lack of full buy-in is widespread. Many students
-          described AI-generated writing as too stiff and that it overly
-          explains everything.
-          <br />
-          <br />
+          This hesitation and lack of full buy-in is widespread.
+        </p>
+        <Statistic
+          main='12+'
+          subheading='mentioned how stiff or mechanic AI-produced writing can be'
+          className='mb-32'
+        />
+        <p className='text-primary-body body mb-32'>
           A key insight here was that many students cited using and preferring
-          Grammarly for small fixes to their writing because other tools such as
-          ChatGPT or Claude tend to rewrite too much and strip away the
-          student&apos;s natural style.
+          Grammarly for smaller fixes to their writing because other tools such
+          as ChatGPT or Claude tend to rewrite too much and strip away the
+          student’s natural style.
           <br />
           <br />
           Because of this, students tend to use AI as a structural tool rather
           than a writing one. They might ask an assistant to generate an outline
-          or to rephrase a line for clarity—but when it comes to fully formed
-          sentences, they step in. Some will even rewrite the outputs entirely,
-          and regard the AI&apos;s response as a peer&apos;s rough draft rather
-          than a final product.
+          or to rephrase a specific line for clarity—but when it comes to fully
+          formed sentences, they step in. Some will even rewrite the outputs
+          entirely, and regard the AI’s response as a peer’s rough draft or
+          inspiration rather than a final product.
           <br />
           <br />
           This wariness of AI “voice” ties into a broader issue of trust: if AI
-          can&apos;t convincingly replicate human nuance in writing, how can
-          students trust it for more complex tasks? Such skepticism plays a
-          significant role in why students have such strict limits on AI&apos;s
-          involvement in both their creative and intellectual work.
+          can’t convincingly replicate human nuance in writing, how can students
+          trust it for more complex tasks? Such skepticism plays a significant
+          role in why students have such strict limits on AI’s involvement in
+          both their creative and intellectual work.
         </p>
         <h3 className='text-primary-title'>The Fear of Skill Atrophy</h3>
         <p className='text-primary-body body mb-32'>
-          However, a recurring theme that appeared in the research was a concern
+          A recurring theme that appeared throughout the research was a concern
           that AI is making students less willing or able to engage deeply with
-          material.
+          different types of academic and societal material.
           <br />
           <br />
-          “I&apos;m concerned about my over-reliance on AI, I want to keep my
+          “I’m concerned about my over-reliance on AI, I want to keep my
           critical thinking sharp and I fear that using too much of it in my
-          workflow will cause my skills to atrophy,” one student voiced more
+          workflow will cause my skills to atrophy.” One student voiced more
           concern over soft skills whilst another fretted over the degradation
           of more basic ones such as arithmetic and algebra.
           <br />
@@ -378,48 +395,54 @@ export default function Home() {
           A third student took a more definitive stance by saying she does not
           and will never pay for anything AI-related because it is already
           difficult to develop her critical thinking skills. If she begins to
-          rely on AI, she won&apos;t pay to “get stupider”.
+          rely on AI, she won’t pay to “get stupider.”
           <br />
           <br />
           The instant availability of AI-generated responses that students value
           about the technology is a double-edged sword as it makes it tempting
           to bypass the steps and effort of working through complex problems,
-          leading to a growing fear of an erosion of independent thought.
-          <br />
-          <br />
+          leading to a growing fear of an erosion of independent thought. 
+        </p>
+        <Statistic
+          main='9'
+          subheading='students worry their thinking will deteriorate due to AI '
+          className='mb-32'
+        />
+        <p className='text-primary-body body mb-32'>
           Also in student minds is the broader concern over learned habits. One
           student touched on expectations: “[Large Learning Models] spit out
           answers within milliseconds, which is impressive, but this can
           decrease our attention span in the long run.” In regard to this
-          conversation, there is slight discourse as others argue that AI can be
-          used to enhance, rather than replace, understanding.
+          conversation, there is less consensus. Some other students argue that
+          AI can be used to enhance, rather than replace, understanding.
           <br />
           <br />
-          Another student dissected their engagements with AI, saying that
-          “[when using AI] I examine the process it is using so that I
-          understand and comprehend how to do the problem, rather than just
+          One particular student dissected their personal interactions with AI,
+          saying that “[When using AI] I examine the process it is using so that
+          I understand and comprehend how to do the problem, rather than just
           copying the output…I aim to use it in a way that still educates me on
-          the subject at hand,”.
+          the subject at hand.”
         </p>
         <h3 className='text-primary-title'>
           Future Uncertainties and the Value of [Human] Work
         </h3>
         <p className='text-primary-body body mb-32'>
-          Extrapolating that fear outwards, many students expressed unease about
-          the prospects of the future job market, as AI automates more tasks.
+          Extrapolating their fears outwards and long-term, many students
+          expressed unease about the prospects of the future job market as AI
+          automates more and more tasks.
           <br />
           <br />
           Some were broad: “I worry humans will forget how to do human things
-          and we&apos;ll lose our culture”.
+          and we’ll lose our culture”.
           <br />
           <br />
-          Others were more specific: “What scares me the most is [AI&apos;s]
-          capacity to eventually replace humans in the workplace and in other
+          Others were more specific: “What scares me the most is [AI’s] capacity
+          to eventually replace humans in the workplace and in other
           facilities”. In tandem with this fear, held in balanced conflict with
           the desire to have AI be efficient, is the fear of skills being
           devalued with quotes such as “I think AI shrinks the gap between the
           capable and less capable” and “The value of hard work will be lost
-          because many things will become easy [for everyone]”.
+          because many things will become easy [for everyone].” 
         </p>
         <Quote
           quote="I worry humans will forget how to do human things and we'll lose our culture."
@@ -435,7 +458,7 @@ export default function Home() {
           depth and resonance— because they believe the human aspect is yet to
           be fully replicated by the technology and also because they believe
           the aforementioned humanity is what makes art “beautiful and
-          valuable”.
+          valuable.”
           <br />
           <br />
           The theme appears to be that critical thought and creativity are
@@ -451,16 +474,20 @@ export default function Home() {
           transparency. Many students expressed discomfort and subsequent
           hesitancy to share personal data with AI companies, some stemming from
           the recent virality of AI and some from the current social and
-          geo-political influences. “
-          <br />
-          <br />
-          It&apos;s scary to think about how [companies] handle [your
-          information], especially since it&apos;s not really regulated,” one
-          student said. For the most part, this fear surrounding privacy emerges
-          from a distrust that is coupled with misinformation: as students noted
-          that the research insights that LLMs might pull as responses can
-          contain errors that seem simple and yet are indicative of a larger gap
-          to stability.
+          geo-political influences.
+        </p>
+        <Statistic
+          main='25'
+          subheading='students referenced concerns about the job market'
+          className='mb-32'
+        />
+        <p className='text-primary-body body mb-32'>
+          “It’s scary to think about how [companies] handle [your information],
+          especially since it’s not really regulated,” one student said. For the
+          most part, this fear surrounding privacy emerges from a distrust that
+          is coupled with misinformation: as students noted that the research
+          insights that LLMs might pull as responses can contain errors that
+          seem simple and yet are indicative of a larger gap to stability.
         </p>
         <Quote
           quote="It's scary to think about how companies handle your information, since it's not really regulated."
@@ -468,32 +495,35 @@ export default function Home() {
         />
         <p className='text-primary-body body mb-32'>
           One student did caveat this margin of error by saying first that AI
-          “doesn&apos;t always have the most accurate information and I have to
+          “doesn’t always have the most accurate information and I have to
           always check if the output is right which takes away from using AI in
-          the first place. I still learn this way so maybe it&apos;s a great
-          thing!”.
+          the first place. I still learn this way so maybe it’s a great thing!”
         </p>
         <h3 className='text-primary-title'>
-          Wrapping things up: How Students Actually Use AI Today
+          Wrapping things up:
+          <br />
+          How Students Actually Use AI Today
         </h3>
         <p className='text-primary-body body mb-32'>
           Despite these concerns, AI is deeply intertwined with student
-          routines. In summary, here&apos;s how they use it: summarizing and
+          routines. In summary, here’s how they use it: summarizing and
           explaining concepts for school, solving and debugging specific errors
           in work and coding instances, organization and as a sounding board for
           personal uses, and sometimes as a replacement for Google for quick
           queries and answers. Interestingly, those who use AI more tend to be
           more adept at steering and tailoring the technology through advanced
           prompting strategies. While other students, more wary of limitations
-          and weaknesses, use it sparingly and yield more variable results.
+          and weaknesses, use it sparingly and yield more variable results. 
         </p>
         <div>
           <p className='font-mono text-secondary-body text-center'>
-            INFOGRAPHIC TITLE
+            Popular tools & Frequency of use
           </p>
           <div className='rounded-rounding bg-accent w-full h-[530px] my-6' />
           <p className='font-mono text-secondary-body text-center'>
-            Optional cool description about this infographic.
+            95.3% of our participants have used ai. The most popular tool of
+            choice? chatgpt. {'>'}50% reported using at least one additional
+            tool beyond mainstream options.
           </p>
         </div>
         <p className='text-primary-body body mb-32'>
