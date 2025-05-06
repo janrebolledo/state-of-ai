@@ -28,7 +28,7 @@ export default function Page() {
   ];
 
   return (
-    <main className='bg-background saturate-[1.2]'>
+    <main className='bg-background'>
       <Header />
       {ui == -1 && (
         <section>

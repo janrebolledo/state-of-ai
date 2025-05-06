@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         className={`${sans.variable} ${geistMono.variable} antialiased font-sans bg-background`}
       >
         {children}
-        <div className='fixed top-0 left-0 right-0 bottom-0 grid grid-cols-2 pointer-events-none overflow-hidden z-20  mix-blend-color-burn backdrop-blur-[0.5px]'>
+        <div className='fixed top-0 left-0 right-0 bottom-0 grid grid-cols-2 pointer-events-none overflow-hidden z-20  mix-blend-color-burn backdrop-saturate-[125%] backdrop-blur-[0.5px]'>
           <Image src={bleed} alt='' className='object-fill w-full h-full' />
           <Image src={bleed} alt='' className='object-fill w-full h-full' />
           <Image src={bleed} alt='' className='object-fill w-full h-full' />

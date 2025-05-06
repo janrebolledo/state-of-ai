@@ -187,7 +187,7 @@ function Statistic({ main, subheading, className }) {
 
 export default function Home() {
   return (
-    <main className='[&_*]:transition-colors w-full saturate-[1.2]'>
+    <main className='[&_*]:transition-colors w-full'>
       <Header />
       {/* hero */}
       <section>

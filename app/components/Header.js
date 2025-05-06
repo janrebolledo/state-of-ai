@@ -42,7 +42,7 @@ export default function Header() {
     );
   }, []);
   return (
-    <header className='w-full flex p-12 fixed z-10'>
+    <header className='w-full flex p-12 fixed z-10 top-0'>
       <Logo
         className='w-16 h-16 text-accent cursor-pointer'
         onClick={toggleTheme}
