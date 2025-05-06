@@ -15,6 +15,9 @@ import Video from './components/Video';
 import Header from './components/Header';
 import Image from 'next/image';
 
+import aiUsageInfographic from '../public/ai-usage-infographic-light.svg';
+import aiUsageInfographicDark from '../public/ai-usage-infographic-dark.svg';
+
 import Elissa from '../public/headshots/Elissa.png';
 import Jan from '../public/headshots/Jan.png';
 import Hope from '../public/headshots/Hope.png';
@@ -184,7 +187,7 @@ function Statistic({ main, subheading, className }) {
 
 export default function Home() {
   return (
-    <main className='[&_*]:transition-colors'>
+    <main className='[&_*]:transition-colors w-full saturate-[1.2]'>
       <Header />
       {/* hero */}
       <section>
@@ -519,7 +522,20 @@ export default function Home() {
           <p className='font-mono text-secondary-body text-center'>
             Popular tools & Frequency of use
           </p>
-          <div className='rounded-rounding bg-accent w-full h-[530px] my-6' />
+          <div className='grid'>
+            <Image
+              src={aiUsageInfographicDark}
+              className='rounded-rounding w-full h-[530px] my-6 col-end-1 row-end-1'
+              alt='Popular AI (Artificial Intelligence) Tools & Frequency of Use Among Students.'
+              quality={100}
+            />
+            <Image
+              src={aiUsageInfographic}
+              className='rounded-rounding w-full h-[530px] my-6 col-end-1 row-end-1 light-el transition-all'
+              alt='Popular AI (Artificial Intelligence) Tools & Frequency of Use Among Students.'
+              quality={100}
+            />
+          </div>
           <p className='font-mono text-secondary-body text-center'>
             95.3% of our participants have used ai. The most popular tool of
             choice? chatgpt. {'>'}50% reported using at least one additional

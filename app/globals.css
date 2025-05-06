@@ -166,3 +166,7 @@ h3 {
 #star {
   fill: var(--background);
 }
+
+html[data-theme='dark'] .light-el {
+  opacity: 0;
+}
