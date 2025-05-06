@@ -1,11 +1,15 @@
 import {
+  Anchor,
+  Architect,
   ArrowDown,
   ArrowRight,
   Email,
   LinkIcon,
+  Operator,
   QuoteIcon,
   Signatures,
   SoftStar,
+  Tinkerer,
   Waves,
   Waves2,
   X,
@@ -14,6 +18,8 @@ import Link from 'next/link';
 import Video from './components/Video';
 import Header from './components/Header';
 import Image from 'next/image';
+
+import quizCtaBg from '../public/assets/quiz-cta-bg.png';
 
 import aiUsageInfographic from '../public/ai-usage-infographic-light.svg';
 import aiUsageInfographicDark from '../public/ai-usage-infographic-dark.svg';
@@ -187,7 +193,7 @@ function Statistic({ main, subheading, className }) {
 
 export default function Home() {
   return (
-    <main className='[&_*]:transition-colors w-full'>
+    <main className='[&_*]:transition-colors'>
       <Header />
       {/* hero */}
       <section>
@@ -238,20 +244,31 @@ export default function Home() {
           Are you a purist who never uses ai? an explorer digging for new use
           cases? a power adopter, who asks ai for relationship advice?
         </p>
-        <p>placeholder doodles [ ੯‧̀͡⬮ ] </p>
+        <div className='grid grid-cols-4 gap-4 xl:gap-12 z-10'>
+          <Anchor className='p-3 rounded bg-background/5 text-alt-primary-body w-full h-full aspect-square xl:w-50 xl:h-50 -rotate-6' />
+          <Operator className='p-3 rounded bg-background/5 text-alt-primary-body w-full h-full aspect-square xl:w-50 xl:h-50 translate-y-5 rotate-6' />
+          <Tinkerer className='p-3 rounded bg-background/5 text-alt-primary-body w-full h-full aspect-square xl:w-50 xl:h-50 rotate-2' />
+          <Architect className='p-3 rounded bg-background/5 text-alt-primary-body w-full h-full aspect-square xl:w-50 xl:h-50 translate-y-4 -rotate-6' />
+        </div>
         <Link
           href='/quiz'
-          className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono items-center rounded-sm w-64 z-10'
+          className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono items-center rounded-sm w-64 z-10 cursor-pointer'
         >
           <span>TAKE THE QUIZ</span>
           <ArrowRight />
         </Link>
+
         <div className='absolute top-0 left-0 right-0 bottom-0 overflow-hidden'>
+          <Image
+            src={quizCtaBg}
+            className='mix-blend-multiply w-full h-full object-cover'
+            quality={100}
+            alt=''
+          />
           <div className='absolute top-0 left-0 right-0 overflow-hidden flex justify-center items-center'>
             <div className='z-0 alt-gradient' />
           </div>
         </div>
-        <p>🚧 working</p>
       </section>
       {/* bridge */}
 
@@ -525,13 +542,13 @@ export default function Home() {
           <div className='grid'>
             <Image
               src={aiUsageInfographicDark}
-              className='rounded-rounding w-full h-[530px] my-6 col-end-1 row-end-1'
+              className='w-full xl:h-[530px] my-6 col-end-1 row-end-1'
               alt='Popular AI (Artificial Intelligence) Tools & Frequency of Use Among Students.'
               quality={100}
             />
             <Image
               src={aiUsageInfographic}
-              className='rounded-rounding w-full h-[530px] my-6 col-end-1 row-end-1 light-el transition-all'
+              className='w-full xl:h-[530px] my-6 col-end-1 row-end-1 light-el transition-all'
               alt='Popular AI (Artificial Intelligence) Tools & Frequency of Use Among Students.'
               quality={100}
             />

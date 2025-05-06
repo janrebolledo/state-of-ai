@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [theme, setTheme] = useState(null);
   useEffect(() => {
     if (pathname === '/') {
@@ -20,8 +21,6 @@ export default function Header() {
         document.documentElement.dataset.theme =
           theme === 'light' ? 'dark' : 'light';
       }
-    } else {
-      document.documentElement.dataset.theme = 'dark';
     }
   }, []);
 
@@ -31,20 +30,24 @@ export default function Header() {
       localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light');
       document.documentElement.dataset.theme =
         theme === 'light' ? 'dark' : 'light';
+    } else {
+      router.push('/');
     }
   }
 
   useEffect(() => {
     console.log(
-      '%c🧑‍🚀 Hey, Astronaut!\n\n%cThis project was built by 8 students over the course of ~4 months, thanks for taking the time to poke around!\n\nSincerely,\n✦ Your Student Ambassador Friends at BCNY',
+      `%c${
+        pathname === '/quiz' ? '🧑‍🚀 Hey, Astronaut' : 'Hi there'
+      }!\n\n%cThis project was built by 8 students over the course of ~4 months, thanks for taking the time to poke around!\n\nSincerely,\n✦ Your Student Ambassador Friends at BCNY`,
       'font-weight: bold; font-size: 18px;',
       'font-size: 16px;'
     );
   }, []);
   return (
-    <header className='w-full flex p-12 fixed z-10 top-0'>
+    <header className='w-full flex p-12 fixed z-10 top-0 pointer-events-none'>
       <Logo
-        className='w-16 h-16 text-accent cursor-pointer'
+        className='w-16 h-16 text-accent cursor-pointer pointer-events-auto relative'
         onClick={toggleTheme}
       />
     </header>

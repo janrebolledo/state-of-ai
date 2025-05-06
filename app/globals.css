@@ -77,7 +77,8 @@
   }
 }
 
-html[data-theme='dark'] {
+html[data-theme='dark'],
+main[data-theme='dark'] {
   --background: #2a292c;
   --background-gradient: #3f3c51;
   --background-gradient-zero: #3f3c5100;
@@ -169,4 +170,39 @@ h3 {
 
 html[data-theme='dark'] .light-el {
   opacity: 0;
+}
+
+.message {
+  animation: initMessage forwards 2s 1s cubic-bezier(0.8, 0, 0, 0.8);
+}
+
+@keyframes initMessage {
+  0% {
+    opacity: 0;
+    width: 0;
+    transform: translateY(300px);
+  }
+  50% {
+    opacity: 1;
+    width: auto;
+    transform: translateY(200px);
+  }
+  100% {
+    opacity: 1;
+    width: auto;
+    transform: translateY(0px);
+  }
+}
+
+.message-container {
+  animation: initMessageConatiner forwards 2s 1s cubic-bezier(0.8, 0, 0, 0.8);
+}
+
+@keyframes initMessageConatiner {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 640px;
+  }
 }
