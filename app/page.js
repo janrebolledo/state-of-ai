@@ -117,7 +117,6 @@ const bcny = [
     name: 'Opata olende',
     subtitle: 'BCNY, lead ux researcher',
     image: Opata,
-    role: ['Dev', 'Video'],
     email: '',
     x: 'https://x.com/royolende',
   },

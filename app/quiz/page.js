@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Header from '../components/Header';
 import {
   SoftStar,
@@ -10,12 +10,11 @@ import {
   CrossedOrbitals,
   SmallPlanet,
 } from '../components/Vectors';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, circInOut } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
 
 export default function Page() {
-  const [ui, setUi] = useState(0);
-  const headerRef = useRef(null);
+  const [ui, setUi] = useState(-1);
   const questions = [
     {
       question:
@@ -235,6 +234,7 @@ export default function Page() {
       ],
     },
   ];
+  const [responses, setResponses] = useState(new Array(questions.length));
 
   return (
     <main className='bg-background' data-theme='dark'>
@@ -250,7 +250,7 @@ export default function Page() {
       </motion.div>
       <div className='max-h-lvh h-lvh relative overflow-hidden'>
         <AnimatePresence>
-          {ui == 0 && (
+          {ui == -1 && (
             <section className='h-full flex flex-col pointer-events-none'>
               <div className='py-42 flex flex-col justify-between h-full z-10'>
                 <div>
@@ -315,56 +315,123 @@ export default function Page() {
           )}
         </AnimatePresence>
         <AnimatePresence>
-          {ui > 0 && ui <= questions.length && (
-            <section className='px-48 pt-48 flex flex-col'>
-              <div ref={headerRef} />
-              <div className='flex gap-2.5 message'>
-                <SoftStar className='text-accent bg-tag rounded-full p-3 w-14 h-14 min-w-14 aspect-square' />
-                <div>
-                  <div className='message-container max-w-[640px] overflow-hidden rounded-2xl mb-2'>
-                    <p className='text-primary-title bg-accent p-6 body !leading-[120%] max-w-[640px] w-max'>
-                      {questions[ui - 1].question}
-                    </p>
-                  </div>
-                  <p className='text-accent font-mono'>
-                    {ui}/{questions.length}
-                  </p>
-                </div>
-              </div>
-              <div className='flex flex-col items-end gap-5'>
-                {questions[ui - 1].answers.map((q, index) => (
-                  <motion.p
-                    className={`rounded-2xl px-12 py-6 text-primary-title body !leading-[120%] bg-tag transition-all`}
-                    key={q.response}
-                    {...motionProps(30 + index, 'down', false)}
-                  >
-                    {q.response}
-                  </motion.p>
-                ))}
-              </div>
-              <motion.footer
-                className='flex items-center justify-center gap-5 fixed left-0 right-0 bottom-16'
-                {...motionProps(30)}
-              >
-                <button
-                  onClick={() => setUi(ui - 1)}
-                  disabled
-                  className='text-secondary-body flex px-6 py-4 justify-end font-mono !font-normal cursor-pointer items-center rounded-sm w-64 pointer-events-auto'
-                >
-                  BACK
-                </button>
-                <button
-                  onClick={() => setUi(ui + 1)}
-                  className='text-background flex justify-between px-6 py-4 disabled:text-secondary-body disabled:bg-tag bg-[#F8F5EF] font-mono !font-normal cursor-pointer items-center rounded-sm w-64 pointer-events-auto transition-all'
-                >
-                  <span>NEXT</span>
-                  <ArrowRight />
-                </button>
-              </motion.footer>
-            </section>
+          {ui >= 0 && ui < questions.length && (
+            <QuestionView
+              ui={ui}
+              setUi={setUi}
+              questions={questions}
+              responses={responses}
+              setResponses={setResponses}
+            />
           )}
         </AnimatePresence>
       </div>
     </main>
+  );
+}
+
+function QuestionView({ ui, setUi, questions, responses, setResponses }) {
+  const questionsContainerRef = useRef(null);
+  const [fadeVisible, setFadeVisible] = useState(false);
+  const [passedInitialScreen, setPassedInitialScreen] = useState(false);
+
+  function selectAnswer(q) {
+    setPassedInitialScreen(true);
+    var tempResponses = [...responses];
+    console.log(q);
+    tempResponses[ui] = q;
+    setResponses(tempResponses);
+    console.log(tempResponses);
+  }
+
+  function handleScroll() {
+    if (questionsContainerRef.current.scrollTop > 50) {
+      setFadeVisible(true);
+    } else {
+      setFadeVisible(false);
+    }
+  }
+
+  return (
+    <section
+      className='px-48 lg:pt-32 2xl:pt-48 block h-lvh overflow-scroll scroll-smooth'
+      ref={questionsContainerRef}
+      onScroll={handleScroll}
+    >
+      <AnimatePresence>
+        {ui == 4 && fadeVisible && (
+          <motion.div
+            {...motionProps(0)}
+            transition={{ duration: 0.2, ease: 'linear' }}
+            className='pointer-events-none fixed top-0 left-0 right-0 bg-gradient-to-t from-background/0 via-background/65 to-background/65 h-60 z-10'
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {ui == 4 && (
+          <motion.div
+            {...motionProps(0, null)}
+            transition={{ duration: 0.2, ease: 'linear' }}
+            className='pointer-events-none fixed bottom-0 left-0 right-0 bg-gradient-to-t to-background/0 via-background/65 from-background/65 h-60 z-10'
+          />
+        )}
+      </AnimatePresence>
+      <div className='flex flex-col min-h-max h-max pb-48'>
+        <div className='flex gap-2.5 message'>
+          <SoftStar className='text-accent bg-tag rounded-full p-3 w-14 h-14 min-w-14 aspect-square' />
+          <div>
+            <div className='message-container max-w-[640px] overflow-hidden rounded-2xl mb-2'>
+              <p className='text-primary-title bg-accent p-6 body !leading-[120%] max-w-[640px] w-max'>
+                {questions[ui].question}
+              </p>
+            </div>
+            <p className='text-accent font-mono'>
+              {ui + 1}/{questions.length}
+            </p>
+          </div>
+        </div>
+        <div className='flex flex-col items-end gap-5'>
+          {questions[ui].answers.map((q, index) => (
+            <motion.p
+              className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all cursor-pointer hover:bg-[#75717B] hover:text-primary-title ${
+                responses[ui] != undefined &&
+                responses[ui].response == q.response
+                  ? 'bg-button-fill text-background border-accent border-2'
+                  : 'bg-tag text-primary-title border-transparent border-2'
+              }`}
+              key={q.response}
+              {...motionProps(
+                (ui == 0 && passedInitialScreen == false ? 30 : 0) + index,
+                'down',
+                false
+              )}
+              onClick={() => selectAnswer(q)}
+            >
+              {q.response}
+            </motion.p>
+          ))}
+        </div>
+      </div>
+      <motion.footer
+        className='flex items-center justify-center gap-5 fixed left-0 right-0 bottom-16 z-20'
+        {...motionProps(30)}
+      >
+        <button
+          onClick={() => setUi(ui - 1)}
+          disabled={ui == 0}
+          className='text-secondary-body flex px-6 py-4 justify-end font-mono !font-normal cursor-pointer items-center rounded-sm w-64 pointer-events-auto'
+        >
+          BACK
+        </button>
+        <button
+          onClick={() => setUi(ui + 1)}
+          disabled={responses[ui] == undefined}
+          className='text-background flex justify-between px-6 py-4 disabled:text-secondary-body disabled:bg-tag bg-[#F8F5EF] font-mono !font-normal cursor-pointer items-center rounded-sm w-64 pointer-events-auto transition-all'
+        >
+          <span>NEXT</span>
+          <ArrowRight />
+        </button>
+      </motion.footer>
+    </section>
   );
 }

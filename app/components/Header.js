@@ -45,7 +45,7 @@ export default function Header() {
     );
   }, []);
   return (
-    <header className='w-full flex p-12 fixed z-10 top-0 pointer-events-none'>
+    <header className='w-full flex p-12 fixed z-20 top-0 pointer-events-none'>
       <Logo
         className='w-16 h-16 text-accent cursor-pointer pointer-events-auto relative'
         onClick={toggleTheme}
