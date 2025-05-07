@@ -219,3 +219,17 @@ html[data-theme='dark'] .light-el {
   animation-timing-function: cubic-bezier(0.8, 0, 0, 0.8);
   animation-delay: inherit;
 }
+
+::selection {
+  background: #c4bdda46;
+}
+
+.bg-tinkerer {
+  background: radial-gradient(
+      55% 176.74% at 50% 148.05%,
+      rgba(67, 156, 179, 0.75) 49.52%,
+      rgba(53, 75, 93, 0.75) 100%
+    ),
+    var(--background-gradient, #3f3c51);
+  box-shadow: 0px -8px 24px 0px #6d9392 inset;
+}

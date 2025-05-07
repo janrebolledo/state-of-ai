@@ -9,6 +9,7 @@ import {
   CrossedOrbitalsLeft,
   CrossedOrbitals,
   SmallPlanet,
+  Send,
 } from '../components/Vectors';
 import { motion, AnimatePresence } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
@@ -319,7 +320,7 @@ export default function Page() {
         <div className='z-0 gradient' />
       </div>
       <motion.div
-        className='absolute left-0 right-0 top-0 bottom-0 overflow-hidden h-lvh w-lvw'
+        className='absolute left-0 right-0 top-0 bottom-0 overflow-hidden h-lvh w-lvw z-30 pointer-events-none'
         {...motionProps(1, 'up')}
       >
         <Stars className='relative left-0 right-0 top-0 bottom-0' />
@@ -627,16 +628,46 @@ function QuestionView({
 function ResultsView({ personality }) {
   console.log(personality);
   return (
-    <section className='absolute top-0 left-0 right-0 bottom-0'>
-      <div className='px-page pt-page'>
-        <div>
-          <p className='font-mono text-secondary-body'>YOUR ARCHETYPE IS</p>
-          <div>{personality.icon}</div>
+    <section className='absolute top-0 left-0 right-0 bottom-0 bg-background z-20'>
+      {/* this little thing slides up? */}
+      <div className='px-page pt-page h-lvh overflow-y-auto flex flex-col gap-20 pb-48'>
+        <div className='max-w-[704px] mx-auto'>
+          <p className='font-mono text-secondary-body text-center mb-3'>
+            YOUR ARCHETYPE IS
+          </p>
+          <h1 className='text-primary-title flex gap-6 [&>svg]:w-40 [&>svg]:h-40 items-center justify-center'>
+            {personality.icon} {personality.name}
+          </h1>
+          <p className='body text-center text-white my-12'>
+            {personality.description}
+          </p>
+          <div className='flex justify-center gap-4 flex-wrap'>
+            {personality.tags.map((i) => (
+              <p
+                key={i}
+                className='text-secondary-body px-4 py-2 bg-tag font-mono uppercase rounded-sm w-max'
+              >
+                {i}
+              </p>
+            ))}
+          </div>
         </div>
-        <div>hiiiiiii</div>
+        <div className='rounded-2xl bg-background-gradient p-12 flex flex-col gap-6 items-center'>
+          <p className='font-mono text-secondary-body flex justify-center gap-3'>
+            <SoftStar className='w-[1.125rem] h-[1.125rem]' /> YOUR TAKE ON AI
+          </p>
+          <h3 className='text-white text-center max-w-[704px]'>
+            {personality.result}
+          </h3>
+        </div>
+        <button className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono !font-normal items-center rounded-sm w-64 z-10 cursor-pointer mx-auto'>
+          <span>share this quiz</span>
+          <Send />
+        </button>
       </div>
       {/* gradient bg */}
-      <div></div>
+
+      <div className='bg-tinkerer w-full h-72'></div>
     </section>
   );
 }
