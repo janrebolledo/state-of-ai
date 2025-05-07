@@ -12,6 +12,7 @@ import {
 } from '../components/Vectors';
 import { motion, AnimatePresence } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
+import { Architect, Tinkerer, Operator, Anchor } from '../components/Vectors';
 
 export default function Page() {
   const [ui, setUi] = useState(-1);
@@ -77,21 +78,40 @@ export default function Page() {
         'You find something new laying around - along with some tools, looks like your crew mate was building something. What’s your move?',
       answerLimit: 1,
       answers: [
-        { response: 'That’s mine, oops, forgot to put it all away.', value: 0 },
+        { response: 'I’m not touching it, looks weird man.', value: 3 },
+        { response: 'I inspect it but that’s their work, not mine.', value: 2 },
         {
           response:
             'Took it for a spin but the calibration’s off, I’ll come back later.',
           value: 1,
         },
-        { response: 'I inspect it but that’s their work, not mine.', value: 2 },
-        { response: 'I’m not touching it, looks weird man.', value: 3 },
+        { response: 'That’s mine, oops, forgot to put it all away.', value: 0 },
       ],
     },
     {
       question:
-        'The item you brought on the ship spontaneously combusts. What’s your reaction? (Pick 2)',
+        'Pick 2. The item you brought on the ship spontaneously combusts. What’s your reaction?',
       answerLimit: 2,
       answers: [
+        { response: 'Cry, it was something you REALLY needed', value: 3 },
+        {
+          response: 'Pivot, it’s time to move on — the mission is of focus',
+          value: 1,
+        },
+        {
+          response: 'Get upset. You think someone else is to blame.',
+          value: 2,
+        },
+        {
+          response:
+            'You’re rendered speechless, you refuse to believe it happened.',
+          value: 3,
+        },
+        {
+          response:
+            'You’re chill, you have a backup — because you knew this would happen.',
+          value: 2,
+        },
         {
           response: 'You ask others if they have one, it’s worth a shot.',
           value: 0,
@@ -102,27 +122,8 @@ export default function Page() {
           value: 1,
         },
         {
-          response: 'Pivot, it’s time to move on — the mission is of focus',
-          value: 2,
-        },
-        {
           response: 'You smile, the loss of it was a growing moment for you :)',
-          value: 3,
-        },
-        { response: 'Cry, it was something you REALLY needed', value: 4 },
-        {
-          response:
-            'You’re rendered speechless, you refuse to believe it happened.',
-          value: 5,
-        },
-        {
-          response: 'Get upset. You think someone else is to blame.',
-          value: 6,
-        },
-        {
-          response:
-            'You’re chill, you have a backup — because you knew this would happen.',
-          value: 7,
+          value: 0,
         },
       ],
     },
@@ -151,13 +152,13 @@ export default function Page() {
       answers: [
         {
           response:
-            'Loss of control, it’s better at my on-ship duties than I am',
-          value: 0,
+            'How it’ll take over humanity, it actually can shape-shift and look like my crew mates',
+          value: 3,
         },
         {
           response:
-            'There’s something uncanny valley about it and no one else seems to notice!',
-          value: 1,
+            'Loss of control, it’s better at my on-ship duties than I am',
+          value: 0,
         },
         {
           response:
@@ -166,8 +167,8 @@ export default function Page() {
         },
         {
           response:
-            'How it’ll take over humanity, it actually can shape-shift and look like my crew mates',
-          value: 3,
+            'There’s something uncanny valley about it and no one else seems to notice!',
+          value: 1,
         },
       ],
     },
@@ -176,6 +177,7 @@ export default function Page() {
         'Remember that new build from before, have your thoughts on it changed?',
       answerLimit: 1,
       answers: [
+        { response: 'Yeah, turns out it’s just for cooking…', value: 2 },
         {
           response:
             'I actually found out it measures the speed of the asteroids around the ship in some unknown unit I’m working to translate',
@@ -186,7 +188,6 @@ export default function Page() {
             'It’s part pen and calibration tool, but I think it also solders joints!',
           value: 1,
         },
-        { response: 'Yeah, turns out it’s just for cooking…', value: 2 },
         { response: 'Nope! Still not touching it', value: 3 },
       ],
     },
@@ -195,19 +196,19 @@ export default function Page() {
       answerLimit: 1,
       answers: [
         {
-          response: 'I was bored, what’s the worst that could happen?',
-          value: 0,
-        },
-        {
           response: 'Because I believe that there’s more out there!',
           value: 1,
         },
+        { response: 'I was forced into this trip 😭', value: 3 },
         {
           response:
             'I wasn’t sure, my friend is another crew mate, and I trust my friend',
           value: 2,
         },
-        { response: 'I was forced into this trip 😭', value: 3 },
+        {
+          response: 'I was bored, what’s the worst that could happen?',
+          value: 0,
+        },
       ],
     },
     {
@@ -220,12 +221,12 @@ export default function Page() {
             'Go back to sleep, you really want this to be real, it was exciting!',
           value: 0,
         },
+        { response: 'Wake up: that was fun, but now it’s a new day', value: 2 },
         {
           response:
             'Look up any existing space missions you might be able to learn more about',
           value: 1,
         },
-        { response: 'Wake up: that was fun, but now it’s a new day', value: 2 },
         {
           response:
             'Snooze the alarm, a huge sigh of relief. At least you don’t have all that responsibility in real life',
@@ -234,7 +235,82 @@ export default function Page() {
       ],
     },
   ];
+
   const [responses, setResponses] = useState(new Array(questions.length));
+  useEffect(() => {
+    setResponses([
+      [
+        {
+          response: 'A manual, duh. What if the trip goes awry?',
+          value: 2,
+        },
+      ],
+      [
+        {
+          response: 'I’ll try to fix it and I’ll leave it otherwise',
+          value: 2,
+        },
+      ],
+      [
+        {
+          response:
+            'Maybe they’ll know how to solve my little error from earlier',
+          value: 0,
+        },
+      ],
+      [
+        {
+          response: 'I inspect it but that’s their work, not mine.',
+          value: 2,
+        },
+      ],
+      [
+        {
+          response: 'Get upset. You think someone else is to blame.',
+          value: 2,
+        },
+        {
+          response: 'Pivot, it’s time to move on — the mission is of focus',
+          value: 1,
+        },
+      ],
+      [
+        {
+          response: 'Often, it’s helping me help others so why not',
+          value: 1,
+        },
+      ],
+      [
+        {
+          response:
+            'Loss of control, it’s better at my on-ship duties than I am',
+          value: 0,
+        },
+      ],
+      [
+        {
+          response:
+            'I actually found out it measures the speed of the asteroids around the ship in some unknown unit I’m working to translate',
+          value: 0,
+        },
+      ],
+      [
+        {
+          response: 'I was forced into this trip 😭',
+          value: 3,
+        },
+      ],
+      [
+        {
+          response:
+            'Go back to sleep, you really want this to be real, it was exciting!',
+          value: 0,
+        },
+      ],
+    ]);
+    setUi(9);
+  }, []);
+  const [personality, setPersonality] = useState();
 
   return (
     <main className='bg-background' data-theme='dark'>
@@ -314,23 +390,30 @@ export default function Page() {
             </section>
           )}
         </AnimatePresence>
-        <AnimatePresence>
-          {ui >= 0 && ui < questions.length && (
-            <QuestionView
-              ui={ui}
-              setUi={setUi}
-              questions={questions}
-              responses={responses}
-              setResponses={setResponses}
-            />
-          )}
-        </AnimatePresence>
+        {ui >= 0 && ui < questions.length && (
+          <QuestionView
+            ui={ui}
+            setUi={setUi}
+            questions={questions}
+            responses={responses}
+            setResponses={setResponses}
+            setPersonality={setPersonality}
+          />
+        )}
+        {personality && <ResultsView personality={personality} />}
       </div>
     </main>
   );
 }
 
-function QuestionView({ ui, setUi, questions, responses, setResponses }) {
+function QuestionView({
+  ui,
+  setUi,
+  questions,
+  responses,
+  setResponses,
+  setPersonality,
+}) {
   const questionsContainerRef = useRef(null);
   const responseContainer = useRef(null);
   const [fadeVisible, setFadeVisible] = useState(false);
@@ -339,15 +422,12 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
   function selectAnswer(q) {
     setPassedInitialScreen(true);
     var tempResponses = [...responses];
-    // console.log(q);
-    // console.log(questions[ui].answerLimit == 2);
     if (questions[ui].answerLimit == 2) {
-      tempResponses[ui] = [q, tempResponses[ui] && tempResponses[ui][0]];
+      tempResponses[ui] = tempResponses[ui] ? [q, tempResponses[ui][0]] : [q];
     } else {
       tempResponses[ui] = [q];
     }
     setResponses(tempResponses);
-    console.log(tempResponses);
   }
 
   function handleScroll() {
@@ -358,9 +438,78 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
     }
   }
 
+  function incrementUi() {
+    if (ui + 1 == questions.length) {
+      determinePersonality();
+    } else {
+      setUi(ui + 1);
+    }
+  }
+
+  function determinePersonality() {
+    var results = { 0: 0, 1: 0, 2: 0, 3: 0 };
+
+    responses.map((i) => {
+      if (i[0] != undefined) {
+        results = { ...results, [i[0].value]: results[i[0].value] + 1 };
+      }
+      if (i[1] != undefined) {
+        results = { ...results, [i[1].value]: results[i[1].value] + 1 };
+      }
+    });
+
+    var personality = null;
+    var personalityCount = 0;
+
+    for (let i = 0; i < 4; i++) {
+      if (results[i] > personalityCount) {
+        personality = i;
+        personalityCount = results[i];
+      }
+    }
+    const personalities = {
+      0: {
+        name: 'Architect',
+        description:
+          'You’re full throttle for the unknown, you’re game for anything new and put 110% into it. You have lots of of hope for the future, and are able to seize whatever opportunity comes your way.',
+        tags: ['STRATEGIC', 'DECISIVE', 'DRIVEN', 'COMMANDING'],
+        result:
+          'You’ve got vision, structure, and a plan - AI is just a vessel for all your potential.',
+        icon: <Architect />,
+      },
+      1: {
+        name: 'Tinkerer',
+        description:
+          'You think about the unknown often, and while you’re not sure how to tackle it — you know you want to. You’re privy to the future and what it holds, and you like taking the time to play with it.',
+        tags: ['CURIOUS', 'INVENTIVE', 'FLEXIBLE', 'RESOURCEFUL'],
+        result:
+          'AI is a playground, you don’t need it to be perfect, you just need it to be open.',
+        icon: <Tinkerer />,
+      },
+      2: {
+        name: 'Operator',
+        description:
+          'You like where you are, and you know what you need. You’ll ask for help occasionally, but you’re content - prioritizing clarity and consistency. No need to fix what’s not broken, am I right?',
+        tags: ['PRACTICAL', 'RELIABLE', 'GROUNDED', 'TRADITIONAL'],
+        result:
+          'AI is useful, but not the center of your world, you’re sticking to what you know.',
+        icon: <Operator />,
+      },
+      3: {
+        name: 'Anchor',
+        description:
+          'You’re hesitant but that’s not a bad thing. After all, slow and steady will win the race. You may not always raise your voice but you’re quietly asking the hard questions and raising the ethical flags. ',
+        tags: ['CAUTIOUS', 'THOUGHTFUL', 'ETHICAL', 'CONNECTED'],
+        result:
+          'You might not use AI much, but you’re always paying attention.',
+        icon: <Anchor />,
+      },
+    };
+    setPersonality(personalities[personality]);
+  }
   return (
     <section
-      className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-scroll scroll-smooth'
+      className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-y-auto scroll-smooth'
       ref={questionsContainerRef}
       onScroll={handleScroll}
     >
@@ -399,13 +548,13 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
               <SoftStar className='text-accent bg-tag rounded-full p-3 w-11 h-11 lg:w-14 lg:h-14 min-w-11 lg:min-w-14 aspect-square animate-spin' />
               <div>
                 <div
-                  className={`message-container overflow-hidden rounded-2xl mb-2 max-w-[calc(100svw-var(--page)*2)] md:max-w-[40rem] ${
+                  className={`message-container overflow-hidden rounded-2xl mb-2 max-w-[calc(100svw-var(--page)*2)] md:max-w-[calc(100svw-var(--page)*2-54px)] lg:max-w-[calc(100svw-var(--page)*2-66px)] xl:max-w-[40rem] ${
                     ui == 0 && !passedInitialScreen
                       ? 'animation-delay-1000'
                       : ''
                   }`}
                 >
-                  <p className='text-primary-title bg-accent p-6 body !leading-[120%] w-max max-w-[calc(100svw-var(--page)*2)] md:max-w-[40rem]'>
+                  <p className='text-primary-title bg-accent p-6 body !leading-[120%] w-max max-w-[calc(100svw-var(--page)*2)] md:max-w-[calc(100svw-var(--page)*2-54px)] lg:max-w-[calc(100svw-var(--page)*2-66px)] xl:max-w-[40rem]'>
                     {questions[ui].question}
                   </p>
                 </div>
@@ -459,7 +608,7 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
           BACK
         </button>
         <button
-          onClick={() => setUi(ui + 1)}
+          onClick={incrementUi}
           disabled={
             !(
               responses[ui] && responses[ui].length == questions[ui].answerLimit
@@ -471,6 +620,23 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
           <ArrowRight />
         </button>
       </motion.footer>
+    </section>
+  );
+}
+
+function ResultsView({ personality }) {
+  console.log(personality);
+  return (
+    <section className='absolute top-0 left-0 right-0 bottom-0'>
+      <div className='px-page pt-page'>
+        <div>
+          <p className='font-mono text-secondary-body'>YOUR ARCHETYPE IS</p>
+          <div>{personality.icon}</div>
+        </div>
+        <div>hiiiiiii</div>
+      </div>
+      {/* gradient bg */}
+      <div></div>
     </section>
   );
 }

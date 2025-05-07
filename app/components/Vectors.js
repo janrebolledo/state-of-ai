@@ -978,3 +978,23 @@ export function SmallPlanet(props) {
     </svg>
   );
 }
+
+export function Send(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='19'
+      height='19'
+      viewBox='0 0 19 19'
+      fill='none'
+    >
+      <path
+        d='M7.93385 9.49985H3.49985L2.0171 3.6011C2.00781 3.56678 2.00203 3.5316 1.99985 3.4961C1.98335 2.95535 2.57885 2.58035 3.09485 2.82785L16.9998 9.49985L3.09485 16.1719C2.58485 16.4171 1.99685 16.0526 1.99985 15.5216C2.00176 15.4742 2.01008 15.4273 2.0246 15.3821L3.12485 11.7499'
+        stroke='currentColor'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
+}
