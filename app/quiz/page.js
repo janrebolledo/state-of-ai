@@ -10,7 +10,7 @@ import {
   CrossedOrbitals,
   SmallPlanet,
 } from '../components/Vectors';
-import { motion, AnimatePresence, circInOut } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
 
 export default function Page() {
@@ -333,15 +333,19 @@ export default function Page() {
 function QuestionView({ ui, setUi, questions, responses, setResponses }) {
   const questionsContainerRef = useRef(null);
   const responseContainer = useRef(null);
-  const [width, setWidth] = useState(null);
   const [fadeVisible, setFadeVisible] = useState(false);
   const [passedInitialScreen, setPassedInitialScreen] = useState(false);
 
   function selectAnswer(q) {
     setPassedInitialScreen(true);
     var tempResponses = [...responses];
-    console.log(q);
-    tempResponses[ui] = q;
+    // console.log(q);
+    // console.log(questions[ui].answerLimit == 2);
+    if (questions[ui].answerLimit == 2) {
+      tempResponses[ui] = [q, tempResponses[ui] && tempResponses[ui][0]];
+    } else {
+      tempResponses[ui] = [q];
+    }
     setResponses(tempResponses);
     console.log(tempResponses);
   }
@@ -354,16 +358,6 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
     }
   }
 
-  useEffect(() => {
-    setWidth(Math.min(responseContainer.current.offsetWidth / 16, 40));
-    const handleResize = () =>
-      setWidth(Math.min(responseContainer.current.offsetWidth / 16, 40));
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
     <section
       className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-scroll scroll-smooth'
@@ -371,7 +365,7 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
       onScroll={handleScroll}
     >
       <AnimatePresence>
-        {ui == 4 && fadeVisible && (
+        {fadeVisible && (
           <motion.div
             {...motionProps(0)}
             transition={{ duration: 0.2, ease: 'linear' }}
@@ -379,15 +373,11 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
           />
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {ui == 4 && (
-          <motion.div
-            {...motionProps(0, null)}
-            transition={{ duration: 0.2, ease: 'linear' }}
-            className='pointer-events-none fixed bottom-0 left-0 right-0 bg-gradient-to-t to-background/0 via-background/65 from-background/65 h-60 z-10'
-          />
-        )}
-      </AnimatePresence>
+      <motion.div
+        {...motionProps(0, null)}
+        transition={{ duration: 0.2, ease: 'linear' }}
+        className='pointer-events-none fixed bottom-0 left-0 right-0 bg-gradient-to-t to-background/0 via-background/65 from-background/65 h-60 z-10'
+      />
       <div className='flex flex-col min-h-max h-max pb-48 relative pt-44'>
         <AnimatePresence>
           {questions[ui].question && (
@@ -406,16 +396,16 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
                 duration: 0.5,
               }}
             >
-              <SoftStar className='text-accent bg-tag rounded-full p-3 w-11 h-11 lg:w-14 lg:h-14 lg:min-w-14 aspect-square animate-spin' />
+              <SoftStar className='text-accent bg-tag rounded-full p-3 w-11 h-11 lg:w-14 lg:h-14 min-w-11 lg:min-w-14 aspect-square animate-spin' />
               <div>
                 <div
-                  className='message-container !lg:max-w-[640px] overflow-hidden rounded-2xl mb-2'
-                  style={{ maxWidth: `${width}rem` }}
+                  className={`message-container overflow-hidden rounded-2xl mb-2 max-w-[calc(100svw-var(--page)*2)] md:max-w-[40rem] ${
+                    ui == 0 && !passedInitialScreen
+                      ? 'animation-delay-1000'
+                      : ''
+                  }`}
                 >
-                  <p
-                    className='text-primary-title bg-accent p-6 body !leading-[120%] !lg:max-w-[640px] w-max'
-                    style={{ maxWidth: `${width}rem` }}
-                  >
+                  <p className='text-primary-title bg-accent p-6 body !leading-[120%] w-max max-w-[calc(100svw-var(--page)*2)] md:max-w-[40rem]'>
                     {questions[ui].question}
                   </p>
                 </div>
@@ -427,25 +417,34 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
           )}
         </AnimatePresence>
         <div className='flex flex-col items-end gap-5' ref={responseContainer}>
-          {questions[ui].answers.map((q, index) => (
-            <motion.p
-              className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right md:text-left ${
-                responses[ui] != undefined &&
-                responses[ui].response == q.response
-                  ? 'bg-button-fill text-background border-accent border-2'
-                  : 'bg-tag text-primary-title border-transparent border-2'
-              }`}
-              key={q.response}
-              {...motionProps(
-                (ui == 0 && passedInitialScreen == false ? 30 : 15) + index,
-                'down',
-                false
-              )}
-              onClick={() => selectAnswer(q)}
-            >
-              {q.response}
-            </motion.p>
-          ))}
+          <AnimatePresence>
+            {questions[ui].answers.map((q, index) => (
+              <motion.p
+                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right md:text-left ${
+                  responses[ui] != undefined &&
+                  responses[ui].filter(
+                    (i) => i != undefined && i.response == q.response
+                  )[0] != undefined
+                    ? 'bg-button-fill text-background border-accent border-2'
+                    : 'bg-tag text-primary-title border-transparent border-2'
+                }`}
+                key={q.response}
+                {...motionProps(
+                  (ui == 0 && passedInitialScreen == false ? 25 : 15) + index,
+                  'down',
+                  false
+                )}
+                exit={{
+                  opacity: 0,
+                  translateY: 50,
+                  transition: { delay: 0.1 + index * 0.1 },
+                }}
+                onClick={() => selectAnswer(q)}
+              >
+                {q.response}
+              </motion.p>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
       <motion.footer
@@ -461,7 +460,11 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
         </button>
         <button
           onClick={() => setUi(ui + 1)}
-          disabled={responses[ui] == undefined}
+          disabled={
+            !(
+              responses[ui] && responses[ui].length == questions[ui].answerLimit
+            )
+          }
           className='text-background flex justify-between px-6 py-4 disabled:text-secondary-body disabled:bg-tag bg-[#F8F5EF] font-mono !font-normal cursor-pointer items-center rounded-sm w-64 pointer-events-auto transition-all'
         >
           <span>NEXT</span>
