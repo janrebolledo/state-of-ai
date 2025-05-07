@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Header from '../components/Header';
 import {
   SoftStar,
@@ -332,6 +332,8 @@ export default function Page() {
 
 function QuestionView({ ui, setUi, questions, responses, setResponses }) {
   const questionsContainerRef = useRef(null);
+  const responseContainer = useRef(null);
+  const [width, setWidth] = useState(null);
   const [fadeVisible, setFadeVisible] = useState(false);
   const [passedInitialScreen, setPassedInitialScreen] = useState(false);
 
@@ -352,9 +354,19 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
     }
   }
 
+  useEffect(() => {
+    setWidth(Math.min(responseContainer.current.offsetWidth / 16, 40));
+    const handleResize = () =>
+      setWidth(Math.min(responseContainer.current.offsetWidth / 16, 40));
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <section
-      className='px-48 lg:pt-32 2xl:pt-48 block h-lvh overflow-scroll scroll-smooth'
+      className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-scroll scroll-smooth'
       ref={questionsContainerRef}
       onScroll={handleScroll}
     >
@@ -376,24 +388,48 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
           />
         )}
       </AnimatePresence>
-      <div className='flex flex-col min-h-max h-max pb-48'>
-        <div className='flex gap-2.5 message'>
-          <SoftStar className='text-accent bg-tag rounded-full p-3 w-14 h-14 min-w-14 aspect-square' />
-          <div>
-            <div className='message-container max-w-[640px] overflow-hidden rounded-2xl mb-2'>
-              <p className='text-primary-title bg-accent p-6 body !leading-[120%] max-w-[640px] w-max'>
-                {questions[ui].question}
-              </p>
-            </div>
-            <p className='text-accent font-mono'>
-              {ui + 1}/{questions.length}
-            </p>
-          </div>
-        </div>
-        <div className='flex flex-col items-end gap-5'>
+      <div className='flex flex-col min-h-max h-max pb-48 relative pt-44'>
+        <AnimatePresence>
+          {questions[ui].question && (
+            <motion.div
+              className={`flex gap-2.5 message absolute top-0 flex-col md:flex-row ${
+                ui == 0 && !passedInitialScreen ? 'animation-delay-1000' : ''
+              }`}
+              key={questions[ui].question}
+              initial={{ translateY: 0, opacity: 1 }}
+              exit={{
+                translateY: -50,
+                opacity: 0,
+                display: 'none',
+              }}
+              transition={{
+                duration: 0.5,
+              }}
+            >
+              <SoftStar className='text-accent bg-tag rounded-full p-3 w-11 h-11 lg:w-14 lg:h-14 lg:min-w-14 aspect-square animate-spin' />
+              <div>
+                <div
+                  className='message-container !lg:max-w-[640px] overflow-hidden rounded-2xl mb-2'
+                  style={{ maxWidth: `${width}rem` }}
+                >
+                  <p
+                    className='text-primary-title bg-accent p-6 body !leading-[120%] !lg:max-w-[640px] w-max'
+                    style={{ maxWidth: `${width}rem` }}
+                  >
+                    {questions[ui].question}
+                  </p>
+                </div>
+                <p className='text-accent font-mono'>
+                  {ui + 1}/{questions.length}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className='flex flex-col items-end gap-5' ref={responseContainer}>
           {questions[ui].answers.map((q, index) => (
             <motion.p
-              className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all cursor-pointer hover:bg-[#75717B] hover:text-primary-title ${
+              className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right md:text-left ${
                 responses[ui] != undefined &&
                 responses[ui].response == q.response
                   ? 'bg-button-fill text-background border-accent border-2'
@@ -401,7 +437,7 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
               }`}
               key={q.response}
               {...motionProps(
-                (ui == 0 && passedInitialScreen == false ? 30 : 0) + index,
+                (ui == 0 && passedInitialScreen == false ? 30 : 15) + index,
                 'down',
                 false
               )}
@@ -413,7 +449,7 @@ function QuestionView({ ui, setUi, questions, responses, setResponses }) {
         </div>
       </div>
       <motion.footer
-        className='flex items-center justify-center gap-5 fixed left-0 right-0 bottom-16 z-20'
+        className='flex items-center justify-center gap-5 fixed left-0 right-0 bottom-16 z-20 px-12 md:px-page'
         {...motionProps(30)}
       >
         <button

@@ -173,7 +173,10 @@ html[data-theme='dark'] .light-el {
 }
 
 .message {
-  animation: initMessage forwards 2s 1s cubic-bezier(0.8, 0, 0, 0.8);
+  animation: initMessage forwards 2s 0s cubic-bezier(0.8, 0, 0, 0.8);
+  opacity: 0;
+  width: 0;
+  transform: translateY(300px);
 }
 
 @keyframes initMessage {
@@ -195,7 +198,7 @@ html[data-theme='dark'] .light-el {
 }
 
 .message-container {
-  animation: initMessageConatiner forwards 2s 1s cubic-bezier(0.8, 0, 0, 0.8);
+  animation: initMessageConatiner forwards 2s 0s cubic-bezier(0.8, 0, 0, 0.8);
 }
 
 @keyframes initMessageConatiner {
@@ -205,4 +208,14 @@ html[data-theme='dark'] .light-el {
   50% {
     width: 640px;
   }
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animate-spin {
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.8, 0, 0, 0.8);
+  animation-delay: inherit;
 }
