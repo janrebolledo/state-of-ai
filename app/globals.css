@@ -63,6 +63,7 @@
   }
   .bg-splash div {
     animation-duration: 3.5s !important;
+    filter: blur(50px) !important;
   }
 }
 
@@ -318,5 +319,7 @@ html[data-theme='dark'] .light-el {
 }
 
 html[data-browser='safari'] .mix-blend-color-burn {
-  mix-blend-mode: overlay !important;
+  mix-blend-mode: hard-light !important;
+  --tw-backdrop-contrast: contrast(125%);
+  /* opacity: 0.1; */
 }

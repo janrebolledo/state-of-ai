@@ -41,27 +41,19 @@ export default function RootLayout({ children }) {
         className={`${sans.variable} ${geistMono.variable} antialiased font-sans bg-background`}
       >
         {children}
-        <div className='fixed top-0 left-0 right-0 bottom-0 grid grid-cols-2 pointer-events-none overflow-hidden z-50 mix-blend-color-burn backdrop-saturate-[110%] backdrop-blur-[0.5px]'>
-          <Image
-            src={bleed}
-            alt=''
-            className='object-fill w-full h-full max-h-[50lvh]'
-          />
-          <Image
-            src={bleed}
-            alt=''
-            className='object-fill w-full h-full max-h-[50lvh]'
-          />
-          <Image
-            src={bleed}
-            alt=''
-            className='object-fill w-full h-full max-h-[50lvh]'
-          />
-          <Image
-            src={bleed}
-            alt=''
-            className='object-fill w-full h-full max-h-[50lvh]'
-          />
+        <div className='fixed top-0 left-0 right-0 bottom-0 grid md:grid-cols-2 pointer-events-none overflow-hidden z-50 mix-blend-color-burn backdrop-saturate-[110%] backdrop-blur-[0.5px]'>
+          <div className='w-full h-full overflow-hidden'>
+            <Image src={bleed} alt='' className='object-fill w-full h-full' />
+          </div>
+          <div className='w-full h-full overflow-hidden hidden md:block'>
+            <Image src={bleed} alt='' className='object-fill w-full h-full' />
+          </div>
+          <div className='w-full h-full overflow-hidden hidden md:block'>
+            <Image src={bleed} alt='' className='object-fill w-full h-full' />
+          </div>
+          <div className='w-full h-full overflow-hidden hidden md:block'>
+            <Image src={bleed} alt='' className='object-fill w-full h-full' />
+          </div>
         </div>
       </body>
     </html>

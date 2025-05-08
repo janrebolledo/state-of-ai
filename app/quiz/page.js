@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
@@ -433,7 +434,7 @@ function QuestionView({
           <AnimatePresence>
             {questions[ui].answers.map((q, index) => (
               <motion.p
-                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right ${
+                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer lg:hover:bg-[#75717B] lg:hover:text-primary-title text-right ${
                   responses[ui] != undefined &&
                   responses[ui].filter(
                     (i) => i != undefined && i.response == q.response
@@ -484,6 +485,7 @@ function QuestionView({
           <ArrowRight />
         </button>
       </motion.footer>
+      <img src='/assets/mask.gif' className='hidden' alt='' />
     </section>
   );
 }
@@ -554,7 +556,7 @@ function ResultsView({ personality }) {
         </motion.button>
       </motion.div>
       {/* gradient bg */}
-      <div className='px-page mt-32 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
+      <div className='px-page mt-36 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
     </section>
   );
 }
