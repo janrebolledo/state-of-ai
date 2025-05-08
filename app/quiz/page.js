@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import {
   SoftStar,
@@ -14,6 +14,9 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
 import { Architect, Tinkerer, Operator, Anchor } from '../components/Vectors';
+
+// TODO:
+// add share functionality
 
 export default function Page() {
   const [ui, setUi] = useState(-1);
@@ -238,79 +241,6 @@ export default function Page() {
   ];
 
   const [responses, setResponses] = useState(new Array(questions.length));
-  useEffect(() => {
-    setResponses([
-      [
-        {
-          response: 'A manual, duh. What if the trip goes awry?',
-          value: 2,
-        },
-      ],
-      [
-        {
-          response: 'I’ll try to fix it and I’ll leave it otherwise',
-          value: 2,
-        },
-      ],
-      [
-        {
-          response:
-            'Maybe they’ll know how to solve my little error from earlier',
-          value: 0,
-        },
-      ],
-      [
-        {
-          response: 'I inspect it but that’s their work, not mine.',
-          value: 2,
-        },
-      ],
-      [
-        {
-          response: 'Get upset. You think someone else is to blame.',
-          value: 2,
-        },
-        {
-          response: 'Pivot, it’s time to move on — the mission is of focus',
-          value: 1,
-        },
-      ],
-      [
-        {
-          response: 'Often, it’s helping me help others so why not',
-          value: 1,
-        },
-      ],
-      [
-        {
-          response:
-            'Loss of control, it’s better at my on-ship duties than I am',
-          value: 0,
-        },
-      ],
-      [
-        {
-          response:
-            'I actually found out it measures the speed of the asteroids around the ship in some unknown unit I’m working to translate',
-          value: 0,
-        },
-      ],
-      [
-        {
-          response: 'I was forced into this trip 😭',
-          value: 3,
-        },
-      ],
-      [
-        {
-          response:
-            'Go back to sleep, you really want this to be real, it was exciting!',
-          value: 0,
-        },
-      ],
-    ]);
-    setUi(9);
-  }, []);
   const [personality, setPersonality] = useState();
 
   return (
@@ -319,77 +249,10 @@ export default function Page() {
       <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
         <div className='z-0 gradient' />
       </div>
-      <motion.div
-        className='absolute left-0 right-0 top-0 bottom-0 overflow-hidden h-lvh w-lvw z-30 pointer-events-none'
-        {...motionProps(1, 'up')}
-      >
-        <Stars className='relative left-0 right-0 top-0 bottom-0' />
-      </motion.div>
+      <BackgroundStars />
       <div className='max-h-lvh h-lvh relative overflow-hidden'>
         <AnimatePresence>
-          {ui == -1 && (
-            <section className='h-full flex flex-col pointer-events-none'>
-              <div className='py-42 flex flex-col justify-between h-full z-10'>
-                <div>
-                  <motion.h1
-                    className='relative text-center pointer-events-auto'
-                    {...motionProps(0, 'down')}
-                  >
-                    <SoftStar className='w-10 h-10 lg:w-13 lg:h-13 text-accent left-0 right-0 -top-4 xl:top-0 mx-auto absolute' />
-                    A Sp<span className='text-accent'>ai</span>ce Odyssey
-                  </motion.h1>
-                  <motion.p
-                    className='font-mono text-secondary-body text-center z-20 pointer-events-auto'
-                    {...motionProps(1, 'down')}
-                  >
-                    what type of ai user are you?
-                  </motion.p>
-                </div>
-                <motion.button
-                  onClick={() => setUi(ui + 1)}
-                  className='text-background flex justify-between px-6 py-4 bg-[#F8F5EF] font-mono !font-normal cursor-pointer items-center rounded-sm w-64 mx-auto pointer-events-auto'
-                  {...motionProps(2, 'down')}
-                >
-                  <span>TAKE THE QUIZ</span>
-                  <ArrowRight />
-                </motion.button>
-              </div>
-              <motion.footer
-                className='text-center mx-auto mt-auto pb-16 z-10'
-                {...motionProps(4)}
-              >
-                <p className='font-mono text-accent pointer-events-auto'>
-                  a whimsical personality quiz
-                  <br />
-                  presented by the school of browser
-                </p>
-              </motion.footer>
-              <motion.div
-                {...motionProps(2, 'up')}
-                className='absolute top-0 right-0 z-0'
-              >
-                <CrossedOrbitals />
-              </motion.div>
-              <motion.div
-                {...motionProps(1, 'up')}
-                className='absolute top-[15%] right-[20%] z-0'
-              >
-                <SmallPlanet />
-              </motion.div>
-              <motion.div
-                {...motionProps(0.5, 'up')}
-                className='absolute top-0 left-0 z-0'
-              >
-                <CrossedOrbitalsLeft />
-              </motion.div>
-              <motion.div
-                {...motionProps(0, 'down')}
-                className='absolute left-0 right-0 bottom-0 z-0 max-w-lvw flex items-center justify-center'
-              >
-                <Planet />
-              </motion.div>
-            </section>
-          )}
+          {ui == -1 && <LandingView ui={ui} setUi={setUi} />}
         </AnimatePresence>
         {ui >= 0 && ui < questions.length && (
           <QuestionView
@@ -570,7 +433,7 @@ function QuestionView({
           <AnimatePresence>
             {questions[ui].answers.map((q, index) => (
               <motion.p
-                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right md:text-left ${
+                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right ${
                   responses[ui] != undefined &&
                   responses[ui].filter(
                     (i) => i != undefined && i.response == q.response
@@ -626,14 +489,15 @@ function QuestionView({
 }
 
 function ResultsView({ personality }) {
-  console.log(personality);
   return (
     <section
       className={`absolute top-0 left-0 right-0 bottom-0 z-20 ${personality.name.toLowerCase()}`}
     >
-      <div className='bg-tinkerer bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30' />
+      <div className='bg-tinkerer bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30'>
+        <div className='w-full h-full' />
+      </div>
       <motion.div
-        className='px-page mt-[calc(var(--page)/2)] pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
+        className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
         {...motionProps(11, 'down')}
       >
         <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
@@ -690,7 +554,130 @@ function ResultsView({ personality }) {
         </motion.button>
       </motion.div>
       {/* gradient bg */}
-      <div className='px-page mt-[calc(var(--page)/2)] pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
+      <div className='px-page mt-32 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
+    </section>
+  );
+}
+
+function BackgroundStars() {
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
+
+  const mouseMoveHandler = (e) => {
+    setMouseX(e.pageX / 100);
+    setMouseY(e.pageY / 100);
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', mouseMoveHandler);
+    return () => {
+      window.removeEventListener('mousemove', mouseMoveHandler);
+    };
+  }, []);
+  return (
+    <motion.div
+      className='absolute left-0 right-0 top-0 bottom-0 overflow-hidden h-lvh w-lvw z-30 pointer-events-none'
+      {...motionProps(1, 'up')}
+    >
+      <Stars
+        className='relative left-0 right-0 top-0 bottom-0'
+        style={{ transform: `translate(${mouseX}px, ${mouseY}px)` }}
+      />
+    </motion.div>
+  );
+}
+
+function LandingView({ ui, setUi }) {
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
+
+  const mouseMoveHandler = (e) => {
+    setMouseX(e.pageX / 100);
+    setMouseY(e.pageY / 100);
+    console.log(e.pageX);
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', mouseMoveHandler);
+    return () => {
+      window.removeEventListener('mousemove', mouseMoveHandler);
+    };
+  }, []);
+  return (
+    <section className='h-full flex flex-col pointer-events-none'>
+      <div className='py-42 flex flex-col justify-between h-full z-10'>
+        <div>
+          <motion.h1
+            className='relative text-center pointer-events-auto p-1'
+            {...motionProps(0, 'down')}
+          >
+            <SoftStar className='w-10 h-10 lg:w-13 lg:h-13 text-accent left-0 right-0 -top-4 xl:top-0 mx-auto absolute' />
+            A Sp<span className='text-accent'>ai</span>ce Odyssey
+          </motion.h1>
+          <motion.p
+            className='font-mono text-secondary-body text-center z-20 pointer-events-auto'
+            {...motionProps(1, 'down')}
+          >
+            what type of ai user are you?
+          </motion.p>
+        </div>
+        <motion.button
+          onClick={() => setUi(ui + 1)}
+          className='text-background flex justify-between px-6 py-4 bg-[#F8F5EF] font-mono !font-normal cursor-pointer items-center rounded-sm w-64 mx-auto pointer-events-auto'
+          {...motionProps(2, 'down')}
+        >
+          <span>TAKE THE QUIZ</span>
+          <ArrowRight />
+        </motion.button>
+      </div>
+      <motion.footer
+        className='text-center mx-auto mt-auto pb-16 z-10'
+        {...motionProps(4)}
+      >
+        <p className='font-mono text-accent pointer-events-auto'>
+          a whimsical personality quiz
+          <br />
+          presented by the school of browser
+        </p>
+      </motion.footer>
+      <motion.div
+        {...motionProps(2, 'up')}
+        className='absolute top-0 right-0 z-0'
+      >
+        <CrossedOrbitals
+          style={{
+            transform: `translate(${mouseX * 5}px, ${mouseY * 5 - 100}px)`,
+          }}
+        />
+      </motion.div>
+      <motion.div
+        {...motionProps(1, 'up')}
+        className='absolute top-[15%] right-[20%] z-0'
+      >
+        <SmallPlanet
+          style={{ transform: `translate(${mouseX * 3}px, ${mouseY * 3}px)` }}
+        />
+      </motion.div>
+      <motion.div
+        {...motionProps(0.5, 'up')}
+        className='absolute top-0 left-0 z-0'
+      >
+        <CrossedOrbitalsLeft
+          style={{
+            transform: `translate(${mouseX * 3.5 - 50}px, ${
+              mouseY * 3.5 - 30
+            }px)`,
+          }}
+        />
+      </motion.div>
+      <motion.div
+        {...motionProps(0, 'down')}
+        className='absolute left-0 right-0 bottom-0 z-0 max-w-lvw flex items-center justify-center'
+      >
+        <Planet
+          style={{ transform: `translate(${mouseX / 2}px, ${mouseY / 2}px)` }}
+        />
+      </motion.div>
     </section>
   );
 }

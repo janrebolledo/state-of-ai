@@ -39,7 +39,7 @@ export default function Header() {
     console.log(
       `%c${
         pathname === '/quiz' ? '🧑‍🚀 Hey, Astronaut' : 'Hi there'
-      }!\n\n%cThis project was imagined by 8 students over the course of ~4 months, thanks for taking the time to poke around!\n\nSincerely,\n✦ Your Student Ambassador Friends at BCNY`,
+      }!\n\n%cThis project was imagined by 8 students over the course of ~4 months, thanks for taking the time to poke around!\n\nWarmly,\n✦ Your Friends at School of Browser`,
       'font-weight: bold; font-size: 18px;',
       'font-size: 16px;'
     );
