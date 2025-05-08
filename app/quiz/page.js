@@ -628,46 +628,67 @@ function QuestionView({
 function ResultsView({ personality }) {
   console.log(personality);
   return (
-    <section className='absolute top-0 left-0 right-0 bottom-0 bg-background z-20'>
+    <section className='absolute top-0 left-0 right-0 bottom-0 z-20'>
+      <div className='bg-tinkerer bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30' />
       {/* this little thing slides up? */}
-      <div className='px-page pt-page h-lvh overflow-y-auto flex flex-col gap-20 pb-48'>
-        <div className='max-w-[704px] mx-auto'>
-          <p className='font-mono text-secondary-body text-center mb-3'>
+      <motion.div
+        className='px-page mt-[calc(var(--page)/2)] pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
+        {...motionProps(11, 'down', true)}
+      >
+        <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
+          <div className='z-0 gradient' />
+        </div>
+        <div className='max-w-[704px] mx-auto z-10'>
+          <motion.p
+            className='font-mono text-secondary-body text-center mb-3'
+            {...motionProps(16, 'down')}
+          >
             YOUR ARCHETYPE IS
-          </p>
-          <h1 className='text-primary-title flex gap-6 [&>svg]:w-40 [&>svg]:h-40 items-center justify-center'>
+          </motion.p>
+          <motion.h1
+            className='text-primary-title flex gap-6 [&>svg]:w-40 [&>svg]:h-40 items-center justify-center'
+            {...motionProps(17, 'down')}
+          >
             {personality.icon} {personality.name}
-          </h1>
-          <p className='body text-center text-white my-12'>
+          </motion.h1>
+          <motion.p
+            className='body text-center text-white my-12'
+            {...motionProps(18, 'down')}
+          >
             {personality.description}
-          </p>
+          </motion.p>
           <div className='flex justify-center gap-4 flex-wrap'>
             {personality.tags.map((i) => (
-              <p
+              <motion.p
                 key={i}
                 className='text-secondary-body px-4 py-2 bg-tag font-mono uppercase rounded-sm w-max'
+                {...motionProps(19 + i, 'down')}
               >
                 {i}
-              </p>
+              </motion.p>
             ))}
           </div>
         </div>
-        <div className='rounded-2xl bg-background-gradient p-12 flex flex-col gap-6 items-center'>
+        <motion.div
+          className='rounded-2xl bg-background-gradient p-12 flex flex-col gap-6 items-center'
+          {...motionProps(19 + personality.tags.length, 'down')}
+        >
           <p className='font-mono text-secondary-body flex justify-center gap-3'>
             <SoftStar className='w-[1.125rem] h-[1.125rem]' /> YOUR TAKE ON AI
           </p>
           <h3 className='text-white text-center max-w-[704px]'>
             {personality.result}
           </h3>
-        </div>
-        <button className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono !font-normal items-center rounded-sm w-64 z-10 cursor-pointer mx-auto'>
+        </motion.div>
+        <motion.button
+          className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono !font-normal items-center rounded-sm w-64 z-10 cursor-pointer mx-auto'
+          {...motionProps(20 + personality.tags.length, 'down')}
+        >
           <span>share this quiz</span>
           <Send />
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
       {/* gradient bg */}
-
-      <div className='bg-tinkerer w-full h-72'></div>
     </section>
   );
 }
