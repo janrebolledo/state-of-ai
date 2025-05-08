@@ -42,10 +42,26 @@ export default function RootLayout({ children }) {
       >
         {children}
         <div className='fixed top-0 left-0 right-0 bottom-0 grid grid-cols-2 pointer-events-none overflow-hidden z-50 mix-blend-color-burn backdrop-saturate-[110%] backdrop-blur-[0.5px]'>
-          <Image src={bleed} alt='' className='object-fill w-full h-full' />
-          <Image src={bleed} alt='' className='object-fill w-full h-full' />
-          <Image src={bleed} alt='' className='object-fill w-full h-full' />
-          <Image src={bleed} alt='' className='object-fill w-full h-full ' />
+          <Image
+            src={bleed}
+            alt=''
+            className='object-fill w-full h-full max-h-[50lvh]'
+          />
+          <Image
+            src={bleed}
+            alt=''
+            className='object-fill w-full h-full max-h-[50lvh]'
+          />
+          <Image
+            src={bleed}
+            alt=''
+            className='object-fill w-full h-full max-h-[50lvh]'
+          />
+          <Image
+            src={bleed}
+            alt=''
+            className='object-fill w-full h-full max-h-[50lvh]'
+          />
         </div>
       </body>
     </html>

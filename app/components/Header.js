@@ -22,6 +22,8 @@ export default function Header() {
           theme === 'light' ? 'dark' : 'light';
       }
     }
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    isSafari && (document.documentElement.dataset.browser = 'safari');
   }, []);
 
   function toggleTheme() {

@@ -316,3 +316,7 @@ html[data-theme='dark'] .light-el {
     transform: translateY(-50px);
   }
 }
+
+html[data-browser='safari'] .mix-blend-color-burn {
+  mix-blend-mode: overlay !important;
+}

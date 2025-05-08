@@ -594,7 +594,6 @@ function LandingView({ ui, setUi }) {
   const mouseMoveHandler = (e) => {
     setMouseX(e.pageX / 100);
     setMouseY(e.pageY / 100);
-    console.log(e.pageX);
   };
 
   useEffect(() => {
