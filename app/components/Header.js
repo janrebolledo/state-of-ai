@@ -16,10 +16,10 @@ export default function Header() {
         const prefersLightTheme = window.matchMedia(
           '(prefers-color-scheme: light)'
         );
-        localStorage.setItem('theme', prefersLightTheme ? 'light' : 'dark');
-        setTheme(prefersLightTheme ? 'light' : 'dark');
-        document.documentElement.dataset.theme =
-          theme === 'light' ? 'dark' : 'light';
+        const theme = prefersLightTheme.matches ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        setTheme(theme);
+        document.documentElement.dataset.theme = theme;
       }
     }
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -47,7 +47,7 @@ export default function Header() {
     );
   }, []);
   return (
-    <header className='w-full flex p-12 fixed z-20 top-0 pointer-events-none'>
+    <header className='w-full flex p-8 md:p-12 fixed z-20 top-0 pointer-events-none'>
       <Logo
         className='w-16 h-16 text-accent cursor-pointer pointer-events-auto relative'
         onClick={toggleTheme}

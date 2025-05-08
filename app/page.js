@@ -83,7 +83,7 @@ const team = [
     name: 'Jacqueline Guo',
     subtitle: 'USC, she/her',
     image: Jacqueline,
-    role: ['Research'],
+    role: ['Graphics', 'Research'],
     email: 'guojacqu@usc.edu',
     website: 'https://thebrowser.company',
     x: 'https://x.com/jacqfolio',
@@ -519,7 +519,7 @@ export default function Home() {
           the first place. I still learn this way so maybe it’s a great thing!”
         </p>
         <h3 className='text-primary-title'>
-          Wrapping things up:
+          Wrapping Things Up:
           <br />
           How Students Actually Use AI Today
         </h3>

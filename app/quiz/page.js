@@ -304,6 +304,7 @@ function QuestionView({
   }
 
   function incrementUi() {
+    questionsContainerRef.current.scrollTop = 0;
     if (ui + 1 == questions.length) {
       determinePersonality();
     } else {
@@ -609,7 +610,7 @@ function LandingView({ ui, setUi }) {
   }, []);
   return (
     <section className='h-full flex flex-col pointer-events-none'>
-      <div className='py-42 flex flex-col justify-between h-full z-10'>
+      <div className='py-42 pt-72 md:pt-42 flex flex-col justify-between h-full z-10'>
         <div>
           <motion.h1
             className='relative text-center pointer-events-auto p-1'
@@ -646,7 +647,7 @@ function LandingView({ ui, setUi }) {
       </motion.footer>
       <motion.div
         {...motionProps(2, 'up')}
-        className='absolute top-0 right-0 z-0'
+        className='absolute -right-[60%] top-0 md:right-0 z-0'
       >
         <CrossedOrbitals
           style={{
@@ -656,7 +657,7 @@ function LandingView({ ui, setUi }) {
       </motion.div>
       <motion.div
         {...motionProps(1, 'up')}
-        className='absolute top-[15%] right-[20%] z-0'
+        className='absolute -right-16 top-1/4 md:top-[15%] md:right-[20%] z-0'
       >
         <SmallPlanet
           style={{ transform: `translate(${mouseX * 3}px, ${mouseY * 3}px)` }}
@@ -664,7 +665,7 @@ function LandingView({ ui, setUi }) {
       </motion.div>
       <motion.div
         {...motionProps(0.5, 'up')}
-        className='absolute top-0 left-0 z-0'
+        className='absolute -left-10 md:top-0 md:left-0 z-0'
       >
         <CrossedOrbitalsLeft
           style={{
@@ -676,7 +677,7 @@ function LandingView({ ui, setUi }) {
       </motion.div>
       <motion.div
         {...motionProps(0, 'down')}
-        className='absolute left-0 right-0 bottom-0 z-0 max-w-lvw flex items-center justify-center'
+        className='absolute left-0 right-0 bottom-0 z-0 max-w-lvw flex items-center justify-center scale-200 md:scale-100'
       >
         <Planet
           style={{ transform: `translate(${mouseX / 2}px, ${mouseY / 2}px)` }}
