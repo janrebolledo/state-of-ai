@@ -495,9 +495,12 @@ function ResultsView({ personality }) {
     <section
       className={`absolute top-0 left-0 right-0 bottom-0 z-20 ${personality.name.toLowerCase()}`}
     >
-      <div className='bg-tinkerer bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30'>
+      <motion.div
+        className='bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30'
+        {...motionProps(0)}
+      >
         <div className='w-full h-full' />
-      </div>
+      </motion.div>
       <motion.div
         className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
         {...motionProps(11, 'down')}
