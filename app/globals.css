@@ -224,21 +224,41 @@ html[data-theme='dark'] .light-el {
   background: #c4bdda46;
 }
 
+.anchor {
+  --gradient-1: rgba(179, 89, 67, 0.75);
+  --gradient-2: rgba(42, 75, 95, 0.75);
+  --glow: #946e5a;
+}
+
+.operator {
+  --gradient-1: rgba(179, 67, 117, 0.75);
+  --gradient-2: rgba(66, 59, 83, 0.75);
+  --glow: #936d78;
+}
+
+.architect {
+  --gradient-1: rgba(103, 140, 182, 0.75);
+  --gradient-2: rgba(128, 91, 117, 0.75);
+  --glow: #7799b3;
+}
+
+.tinkerer {
+  --gradient-1: rgba(67, 156, 179, 0.75);
+  --gradient-2: rgba(53, 75, 93, 0.75);
+  --glow: #6d9392;
+}
+
 .bg-splash {
   mask-image: url('/assets/mask.gif');
   mask-position: center;
   mask-size: cover;
-  /* animation: forwards backsplash 1s 0s cubic-bezier(0.8, 0, 0, 0.8); */
-}
-
-.bg-tinkerer {
   background: radial-gradient(
       55% 176.74% at 50% 148.05%,
-      rgba(67, 156, 179, 0.75) 49.52%,
-      rgba(53, 75, 93, 0.75) 100%
+      var(--gradient-1) 49.52%,
+      var(--gradient-2) 100%
     ),
-    var(--background-gradient, #3f3c51);
-  box-shadow: 0px -8px 24px 0px #6d9392 inset;
+    var(--background-gradient);
+  box-shadow: 0px -8px 24px 0px var(--glow) inset;
 }
 
 .drawer {
@@ -246,18 +266,22 @@ html[data-theme='dark'] .light-el {
   mask-position: top;
   mask-repeat: no-repeat;
   mask-size: cover;
-  filter: drop-shadow(0px -8px 24px 0px #6d9392);
 }
 
-@keyframes backsplash {
+.glow {
+  mask-image: url('/assets/mask-2.svg');
+  background: var(--glow);
+  opacity: 0;
+  animation: glow 0.5s 1.5s ease forwards;
+}
+
+@keyframes glow {
   0% {
-    rotate: -360deg;
-    border-radius: 100%;
-    scale: 0;
+    opacity: 0;
+    transform: translateY(0px);
   }
   100% {
-    rotate: 0;
-    border-radius: 0;
-    scale: 1;
+    opacity: 1;
+    transform: translateY(-50px);
   }
 }

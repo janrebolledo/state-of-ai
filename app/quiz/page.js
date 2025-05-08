@@ -628,12 +628,13 @@ function QuestionView({
 function ResultsView({ personality }) {
   console.log(personality);
   return (
-    <section className='absolute top-0 left-0 right-0 bottom-0 z-20'>
+    <section
+      className={`absolute top-0 left-0 right-0 bottom-0 z-20 ${personality.name.toLowerCase()}`}
+    >
       <div className='bg-tinkerer bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30' />
-      {/* this little thing slides up? */}
       <motion.div
         className='px-page mt-[calc(var(--page)/2)] pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
-        {...motionProps(11, 'down', true)}
+        {...motionProps(11, 'down')}
       >
         <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
           <div className='z-0 gradient' />
@@ -641,28 +642,28 @@ function ResultsView({ personality }) {
         <div className='max-w-[704px] mx-auto z-10'>
           <motion.p
             className='font-mono text-secondary-body text-center mb-3'
-            {...motionProps(16, 'down')}
+            {...motionProps(13, 'down')}
           >
             YOUR ARCHETYPE IS
           </motion.p>
           <motion.h1
-            className='text-primary-title flex gap-6 [&>svg]:w-40 [&>svg]:h-40 items-center justify-center'
+            className='text-primary-title flex gap-6 [&>svg]:w-20 [&>svg]:h-20 lg:[&>svg]:w-40 lg:[&>svg]:h-40 items-center justify-center'
             {...motionProps(17, 'down')}
           >
             {personality.icon} {personality.name}
           </motion.h1>
           <motion.p
-            className='body text-center text-white my-12'
+            className='body text-center text-white my-12 !leading-[200%]'
             {...motionProps(18, 'down')}
           >
             {personality.description}
           </motion.p>
           <div className='flex justify-center gap-4 flex-wrap'>
-            {personality.tags.map((i) => (
+            {personality.tags.map((i, index) => (
               <motion.p
                 key={i}
                 className='text-secondary-body px-4 py-2 bg-tag font-mono uppercase rounded-sm w-max'
-                {...motionProps(19 + i, 'down')}
+                {...motionProps(20 + index, 'down')}
               >
                 {i}
               </motion.p>
@@ -689,6 +690,7 @@ function ResultsView({ personality }) {
         </motion.button>
       </motion.div>
       {/* gradient bg */}
+      <div className='px-page mt-[calc(var(--page)/2)] pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
     </section>
   );
 }
