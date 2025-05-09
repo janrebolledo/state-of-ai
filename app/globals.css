@@ -319,7 +319,8 @@ html[data-theme='dark'] .light-el {
 }
 
 html[data-browser='safari'] .mix-blend-color-burn {
-  mix-blend-mode: hard-light !important;
-  --tw-backdrop-contrast: contrast(125%);
-  /* opacity: 0.1; */
+  mix-blend-mode: multiply !important;
+  --tw-backdrop-contrast: contrast(30%);
+  --tw-backdrop-brightness: brightness(300%);
+  opacity: 0.7;
 }

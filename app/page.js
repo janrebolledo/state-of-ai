@@ -124,7 +124,7 @@ const bcny = [
 
 function PersonCard({ member }) {
   return (
-    <div className='flex gap-6 p-4 xl:col-span-2 xl:nth-last-of-type-[2]:col-span-3 xl:nth-last-of-type-[1]:col-span-3 lg:nth-last-of-type-[2]:justify-center lg:nth-last-of-type:justify-center px-[30%] md:px-4'>
+    <div className='flex gap-6 p-4 xl:col-span-2 xl:nth-last-of-type-[2]:col-span-3 xl:nth-last-of-type-[1]:col-span-3 lg:nth-last-of-type-[2]:justify-center lg:nth-last-of-type:justify-center px-32 md:px-[30%] lg:px-4'>
       <Image
         className='w-[4.875rem] h-[4.875rem] aspect-square rounded-full bg-accent'
         src={member.image}

@@ -287,6 +287,24 @@ function QuestionView({
   function selectAnswer(q) {
     setPassedInitialScreen(true);
     var tempResponses = [...responses];
+    if (responses[ui] != undefined) {
+      if (
+        responses[ui][0] != undefined &&
+        q.response == responses[ui][0].response
+      ) {
+        tempResponses[ui][0] = undefined;
+        setResponses(tempResponses);
+        return;
+      }
+      if (
+        responses[ui][1] != undefined &&
+        q.response == responses[ui][1].response
+      ) {
+        tempResponses[ui][1] = undefined;
+        setResponses(tempResponses);
+        return;
+      }
+    }
     if (questions[ui].answerLimit == 2) {
       tempResponses[ui] = tempResponses[ui] ? [q, tempResponses[ui][0]] : [q];
     } else {
