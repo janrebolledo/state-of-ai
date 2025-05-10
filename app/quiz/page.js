@@ -245,7 +245,7 @@ export default function Page() {
   const [personality, setPersonality] = useState();
 
   return (
-    <main className='bg-background' data-theme='dark'>
+    <main className='bg-background h-svh overflow-hidden' data-theme='dark'>
       <Header />
       <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
         <div className='z-0 gradient' />
@@ -322,12 +322,15 @@ function QuestionView({
   }
 
   function incrementUi() {
-    questionsContainerRef.current.scrollTop = 0;
     if (ui + 1 == questions.length) {
       determinePersonality();
+      setTimeout(() => {
+        setUi(ui + 1);
+      }, 2000);
     } else {
       setUi(ui + 1);
     }
+    questionsContainerRef.current.scrollTop = 0;
   }
 
   function determinePersonality() {
@@ -393,7 +396,7 @@ function QuestionView({
   }
   return (
     <section
-      className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-y-auto scroll-smooth'
+      className='px-page pt-40 lg:pt-32 2xl:pt-48 block h-lvh overflow-y-auto'
       ref={questionsContainerRef}
       onScroll={handleScroll}
     >
@@ -411,7 +414,7 @@ function QuestionView({
         transition={{ duration: 0.2, ease: 'linear' }}
         className='pointer-events-none fixed bottom-0 left-0 right-0 bg-gradient-to-t to-background/0 via-background/65 from-background/65 h-60 z-10'
       />
-      <div className='flex flex-col min-h-max h-max pb-48 relative pt-44'>
+      <div className='flex flex-col min-h-max h-max pb-48 relative pt-60 lg:pt-44'>
         <AnimatePresence>
           {questions[ui].question && (
             <motion.div
@@ -512,7 +515,7 @@ function QuestionView({
 function ResultsView({ personality }) {
   return (
     <section
-      className={`absolute top-0 left-0 right-0 bottom-0 z-20 ${personality.name.toLowerCase()}`}
+      className={`absolute top-0 left-0 right-0 bottom-0 z-20 h-lvh overflow-y-auto ${personality.name.toLowerCase()}`}
     >
       <motion.div
         className='bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30'
@@ -521,7 +524,7 @@ function ResultsView({ personality }) {
         <div className='w-full h-full' />
       </motion.div>
       <motion.div
-        className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
+        className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
         {...motionProps(11, 'down')}
       >
         <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
