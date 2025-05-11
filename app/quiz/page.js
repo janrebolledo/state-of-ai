@@ -16,9 +16,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { motionProps } from '../lib/motionProps';
 import { Architect, Tinkerer, Operator, Anchor } from '../components/Vectors';
 
-// TODO:
-// add share functionality
-
 export default function Page() {
   const [ui, setUi] = useState(-1);
   const questions = [
@@ -245,7 +242,7 @@ export default function Page() {
   const [personality, setPersonality] = useState();
 
   return (
-    <main className='bg-background h-svh overflow-hidden' data-theme='dark'>
+    <main className='bg-background h-lvh overflow-hidden' data-theme='dark'>
       <Header />
       <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
         <div className='z-0 gradient' />
@@ -326,7 +323,11 @@ function QuestionView({
     } else {
       setUi(ui + 1);
     }
-    questionsContainerRef.current.scrollTop = 0;
+    setTimeout(
+      () =>
+        questionsContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' }),
+      0
+    );
   }
 
   function determinePersonality() {
@@ -509,6 +510,32 @@ function QuestionView({
 }
 
 function ResultsView({ personality }) {
+  const [clipboardToast, setClipboardToast] = useState(null);
+  async function handleCopyToClipboard() {
+    if (navigator.canShare) {
+      try {
+        const data = {
+          url: window.location,
+          title: 'Students and AI — Personality Quiz',
+        };
+        await navigator.share(data);
+        setClipboardToast('SHARING');
+      } catch {
+        setClipboardToast('AN ERROR OCCURRED :(');
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location);
+        setClipboardToast('COPIED TO CLIPBOARD');
+      } catch {
+        setClipboardToast('AN ERROR OCCURRED :(');
+      }
+    }
+
+    setTimeout(() => {
+      setClipboardToast(null);
+    }, 2000);
+  }
   return (
     <section
       className={`absolute top-0 left-0 right-0 bottom-0 z-20 h-lvh overflow-y-auto ${personality.name.toLowerCase()}`}
@@ -571,12 +598,17 @@ function ResultsView({ personality }) {
         <motion.button
           className='text-button-text flex justify-between px-6 py-4 bg-button-fill font-mono !font-normal items-center rounded-sm w-64 z-10 cursor-pointer mx-auto'
           {...motionProps(20 + personality.tags.length, 'down')}
+          onClick={handleCopyToClipboard}
         >
           <span>share this quiz</span>
           <Send />
         </motion.button>
-        <div className={`font-mono text-secondary-body`}>
-          COPIED TO CLIPBOARD
+        <div
+          className={`font-mono transition-all text-center -mt-16 duration-300 ${
+            clipboardToast != null ? 'text-secondary-body' : 'text-transparent'
+          }`}
+        >
+          {clipboardToast}
         </div>
       </motion.div>
       {/* gradient bg */}

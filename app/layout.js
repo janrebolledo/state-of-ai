@@ -30,10 +30,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Students and AI — The Browser Company',
+  title: 'Students and AI — School of Browser',
   description:
     "We talked to students all across the United States with one question in mind: what do they think about AI? Here's what they said:",
-  
 };
 
 export default function RootLayout({ children }) {
