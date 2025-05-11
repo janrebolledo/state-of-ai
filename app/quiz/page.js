@@ -242,28 +242,29 @@ export default function Page() {
   const [personality, setPersonality] = useState();
 
   return (
-    <main className='bg-background h-lvh overflow-hidden' data-theme='dark'>
+    <main
+      className='bg-background h-lvh overflow-hidden relative'
+      data-theme='dark'
+    >
       <Header />
       <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
         <div className='z-0 gradient' />
       </div>
       <BackgroundStars />
-      <div className='max-h-lvh h-lvh relative overflow-hidden'>
-        <AnimatePresence>
-          {ui == -1 && <LandingView ui={ui} setUi={setUi} />}
-        </AnimatePresence>
-        {ui >= 0 && ui < questions.length && (
-          <QuestionView
-            ui={ui}
-            setUi={setUi}
-            questions={questions}
-            responses={responses}
-            setResponses={setResponses}
-            setPersonality={setPersonality}
-          />
-        )}
-        {personality && <ResultsView personality={personality} />}
-      </div>
+      <AnimatePresence>
+        {ui == -1 && <LandingView ui={ui} setUi={setUi} />}
+      </AnimatePresence>
+      {ui >= 0 && ui < questions.length && (
+        <QuestionView
+          ui={ui}
+          setUi={setUi}
+          questions={questions}
+          responses={responses}
+          setResponses={setResponses}
+          setPersonality={setPersonality}
+        />
+      )}
+      {personality && <ResultsView personality={personality} />}
     </main>
   );
 }
@@ -453,7 +454,7 @@ function QuestionView({
           <AnimatePresence>
             {questions[ui].answers.map((q, index) => (
               <motion.p
-                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer lg:hover:bg-[#75717B] hover:text-primary-title text-right ${
+                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer hover:bg-[#75717B] hover:text-primary-title text-right ${
                   responses[ui] != undefined &&
                   responses[ui].filter(
                     (i) => i != undefined && i.response == q.response
@@ -541,13 +542,13 @@ function ResultsView({ personality }) {
       className={`absolute top-0 left-0 right-0 bottom-0 z-20 h-lvh overflow-y-auto ${personality.name.toLowerCase()}`}
     >
       <motion.div
-        className='bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30'
+        className='bg-splash w-full absolute top-0 left-0 right-0 bottom-0 z-30 overflow-hidden'
         {...motionProps(0)}
       >
         <div className='w-full h-full' />
       </motion.div>
       <motion.div
-        className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] flex flex-col gap-20 pb-48 z-40 relative bg-background drawer'
+        className='px-page mt-30 pt-20 xl:mt-[calc(var(--page)/2)] xl:pt-[calc(var(--page)/2)] flex flex-col gap-20 pb-32 z-40 relative bg-background drawer'
         {...motionProps(11, 'down')}
       >
         <div className='absolute -top-[45rem] left-0 right-0 overflow-hidden flex justify-center items-center z-0 pointer-events-none'>
@@ -612,7 +613,7 @@ function ResultsView({ personality }) {
         </div>
       </motion.div>
       {/* gradient bg */}
-      <div className='px-page mt-36 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
+      <div className='mt-36 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
     </section>
   );
 }
