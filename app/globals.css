@@ -62,7 +62,7 @@
     --rounding: 0.75rem;
   }
   .bg-splash div {
-    animation-duration: 3.5s !important;
+    animation-duration: 3s !important;
     filter: blur(50px) !important;
   }
 }

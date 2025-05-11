@@ -287,24 +287,20 @@ function QuestionView({
   function selectAnswer(q) {
     setPassedInitialScreen(true);
     var tempResponses = [...responses];
-    if (responses[ui] != undefined) {
-      if (
-        responses[ui][0] != undefined &&
-        q.response == responses[ui][0].response
-      ) {
-        tempResponses[ui][0] = undefined;
-        setResponses(tempResponses);
-        return;
-      }
-      if (
-        responses[ui][1] != undefined &&
-        q.response == responses[ui][1].response
-      ) {
-        tempResponses[ui][1] = undefined;
-        setResponses(tempResponses);
-        return;
-      }
+    if (
+      responses[ui] != undefined &&
+      ((responses[ui][0] != undefined &&
+        q.response == responses[ui][0].response) ||
+        (responses[ui][1] != undefined &&
+          q.response == responses[ui][1].response))
+    ) {
+      tempResponses[ui] = tempResponses[ui].filter(
+        (i) => i.response != q.response
+      );
+      setResponses(tempResponses);
+      return;
     }
+
     if (questions[ui].answerLimit == 2) {
       tempResponses[ui] = tempResponses[ui] ? [q, tempResponses[ui][0]] : [q];
     } else {
@@ -456,7 +452,7 @@ function QuestionView({
           <AnimatePresence>
             {questions[ui].answers.map((q, index) => (
               <motion.p
-                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer lg:hover:bg-[#75717B] lg:hover:text-primary-title text-right ${
+                className={`rounded-2xl px-12 py-6 body !leading-[120%] transition-all w-full md:max-w-max cursor-pointer lg:hover:bg-[#75717B] hover:text-primary-title text-right ${
                   responses[ui] != undefined &&
                   responses[ui].filter(
                     (i) => i != undefined && i.response == q.response
@@ -579,6 +575,9 @@ function ResultsView({ personality }) {
           <span>share this quiz</span>
           <Send />
         </motion.button>
+        <div className={`font-mono text-secondary-body`}>
+          COPIED TO CLIPBOARD
+        </div>
       </motion.div>
       {/* gradient bg */}
       <div className='px-page mt-36 xl:mt-[calc(var(--page)/2)] h-lvh overflow-y-auto flex flex-col gap-20 pb-48 z-30 absolute top-0 left-0 right-0 drawer glow' />
