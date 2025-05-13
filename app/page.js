@@ -285,7 +285,7 @@ export default function Home() {
         <p className='font-mono uppercase px-page text-right mt-6 text-secondary-body'>
           VIdeo editing by jan
           <br />
-          featuring footage from cpp, usc, ucla
+          featuring footage from cpp & usc
         </p>
       </section>
       {/* article section */}

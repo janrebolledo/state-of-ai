@@ -49,10 +49,16 @@
   --radius-rounding: var(--rounding);
 }
 
+@media (max-width < 80rem) {
+  :root {
+    --page: 16rem;
+  }
+}
+
 /* tablet */
 @media (max-width: 1200px) {
   :root {
-    --page: 16rem;
+    --page: 1rem;
     --section: 7.5rem;
     --h1: 4rem;
     --h2: 3rem;

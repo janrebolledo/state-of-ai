@@ -92,7 +92,7 @@ export default function Page() {
     },
     {
       question:
-        'Pick 2. The item you brought on the ship spontaneously combusts. What’s your reaction?',
+        'The item you brought on the ship spontaneously combusts. What’s your reaction?',
       answerLimit: 2,
       answers: [
         { response: 'Cry, it was something you REALLY needed', value: 3 },
@@ -131,7 +131,7 @@ export default function Page() {
     },
     {
       question:
-        'There’s a magic elixir on the ship, you’re a pretty clumsy person and this solves it — how often do you drink from it?',
+        'There’s a magic elixir on the ship, you’re a pretty clumsy person and this solves pain — how often do you drink from it?',
       answerLimit: 1,
       answers: [
         { response: 'I drank from it, for preventative care', value: 0 },
@@ -176,7 +176,7 @@ export default function Page() {
     },
     {
       question:
-        'Remember that new build from before, have your thoughts on it changed?',
+        'Remember that new build from before? Have your thoughts on it changed?',
       answerLimit: 1,
       answers: [
         { response: 'Yeah, turns out it’s just for cooking…', value: 2 },
@@ -440,6 +440,9 @@ function QuestionView({
                   }`}
                 >
                   <p className='text-primary-title bg-accent p-6 body !leading-[120%] w-max max-w-[calc(100svw-var(--page)*2)] md:max-w-[calc(100svw-var(--page)*2-54px)] lg:max-w-[calc(100svw-var(--page)*2-66px)] xl:max-w-[40rem]'>
+                    {questions[ui].answerLimit > 1 && (
+                      <i>Pick {questions[ui].answerLimit}: </i>
+                    )}
                     {questions[ui].question}
                   </p>
                 </div>
@@ -512,25 +515,13 @@ function QuestionView({
 
 function ResultsView({ personality }) {
   const [clipboardToast, setClipboardToast] = useState(null);
+
   async function handleCopyToClipboard() {
-    if (navigator.canShare) {
-      try {
-        const data = {
-          url: window.location,
-          title: 'Students and AI — Personality Quiz',
-        };
-        await navigator.share(data);
-        setClipboardToast('SHARING');
-      } catch {
-        setClipboardToast('AN ERROR OCCURRED :(');
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(window.location);
-        setClipboardToast('COPIED TO CLIPBOARD');
-      } catch {
-        setClipboardToast('AN ERROR OCCURRED :(');
-      }
+    try {
+      await navigator.clipboard.writeText(window.location);
+      setClipboardToast('COPIED TO CLIPBOARD');
+    } catch {
+      setClipboardToast('AN ERROR OCCURRED :(');
     }
 
     setTimeout(() => {
@@ -589,7 +580,7 @@ function ResultsView({ personality }) {
           className='rounded-2xl bg-background-gradient p-12 flex flex-col gap-6 items-center'
           {...motionProps(19 + personality.tags.length, 'down')}
         >
-          <p className='font-mono text-secondary-body flex justify-center gap-3'>
+          <p className='font-mono text-secondary-body flex justify-center gap-3 items-center'>
             <SoftStar className='w-[1.125rem] h-[1.125rem]' /> YOUR TAKE ON AI
           </p>
           <h3 className='text-white text-center max-w-[704px]'>
@@ -604,12 +595,21 @@ function ResultsView({ personality }) {
           <span>share this quiz</span>
           <Send />
         </motion.button>
-        <div
-          className={`font-mono transition-all text-center -mt-16 duration-300 ${
-            clipboardToast != null ? 'text-secondary-body' : 'text-transparent'
-          }`}
-        >
-          {clipboardToast}
+        <div className='h-16 -mt-16'>
+          <AnimatePresence>
+            {clipboardToast && (
+              <motion.div
+                className='font-mono transition-all text-center mx-auto text-secondary-body px-4 py-2 bg-tag uppercase rounded-sm w-max'
+                {...motionProps(0)}
+                transition={{
+                  ease: 'easeInOut',
+                  duration: 0.2,
+                }}
+              >
+                {clipboardToast}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.div>
       {/* gradient bg */}
